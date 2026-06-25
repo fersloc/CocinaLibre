@@ -135,7 +135,7 @@
       .hero {
         position: relative;
         min-height: calc(100vh - 76px);
-        padding: clamp(42px, 7vw, 96px) 0 clamp(70px, 8vw, 120px);
+        padding: clamp(38px, 6vw, 78px) 0 clamp(92px, 10vw, 150px);
         background:
           radial-gradient(circle at 8% 12%, rgba(255, 219, 204, 0.55), transparent 22rem),
           var(--cream);
@@ -146,10 +146,10 @@
       .hero::before {
         content: "";
         position: absolute;
-        inset: 0 0 10%;
+        inset: 0 0 4%;
         z-index: 0;
         background: var(--sage);
-        clip-path: ellipse(96% 74% at 38% 12%);
+        clip-path: ellipse(104% 82% at 38% 7%);
       }
 
       .hero > * {
@@ -161,7 +161,7 @@
         display: grid;
         grid-template-columns: minmax(0, 0.9fr) minmax(320px, 1.1fr);
         gap: clamp(32px, 5vw, 76px);
-        align-items: center;
+        align-items: start;
       }
 
       .eyebrow {
@@ -182,19 +182,19 @@
       }
 
       .hero h1 {
-        max-width: 720px;
+        max-width: 650px;
         margin-top: 18px;
         color: white;
-        font-size: clamp(3.1rem, 7vw, 6.7rem);
-        line-height: 0.95;
+        font-size: clamp(2.85rem, 5.9vw, 5.65rem);
+        line-height: 0.98;
         letter-spacing: -0.02em;
       }
 
       .hero-copy {
-        max-width: 560px;
-        margin: 24px 0 0;
-        color: rgba(255,255,255,0.78);
-        font-size: 1.08rem;
+        max-width: 610px;
+        margin: 26px 0 0;
+        color: rgba(255,255,255,0.86);
+        font-size: clamp(1rem, 1.25vw, 1.12rem);
         line-height: 1.7;
       }
 
@@ -339,6 +339,7 @@
         position: relative;
         z-index: 2;
         margin-top: -54px;
+        padding-bottom: clamp(70px, 8vw, 120px);
       }
 
       .category-band {
@@ -383,27 +384,36 @@
         cursor: pointer;
         text-align: left;
         box-shadow: 0 18px 42px rgba(66, 41, 24, 0.16);
-        animation: blobBreath 14s ease-in-out infinite;
+        animation: blobBreath var(--blob-speed, 14s) ease-in-out infinite;
+        animation-delay: var(--blob-delay, 0s);
       }
 
       .category-tile:nth-child(1) {
         border-radius: 52% 48% 42% 58% / 55% 40% 60% 45%;
+        --blob-speed: 13s;
+        --blob-delay: -1.5s;
       }
 
       .category-tile:nth-child(2) {
         border-radius: 34% 66% 54% 46% / 58% 43% 57% 42%;
         transform: translateY(18px);
+        --blob-speed: 16s;
+        --blob-delay: -6s;
       }
 
       .category-tile:nth-child(3) {
         border-radius: 70% 30% 42% 58% / 42% 57% 43% 58%;
         transform: translateY(-8px);
+        --blob-speed: 12s;
+        --blob-delay: -3.25s;
       }
 
       .category-tile:nth-child(4) {
         border-radius: 46% 54% 63% 37% / 54% 39% 61% 46%;
         background: var(--clay);
         transform: translateY(8px);
+        --blob-speed: 17s;
+        --blob-delay: -9s;
       }
 
       .category-tile img {
@@ -454,18 +464,6 @@
         border-radius: 54% 46% 35% 65% / 58% 36% 64% 42%;
       }
 
-      .category-jump-inline {
-        min-height: 44px;
-        padding: 0 18px;
-        border: 1px solid rgba(67, 81, 55, 0.22);
-        border-radius: 999px;
-        background: rgba(255,253,247,0.84);
-        color: var(--sage);
-        text-decoration: none;
-        font-weight: 800;
-        box-shadow: 0 10px 24px rgba(66, 41, 24, 0.08);
-      }
-
       .category-tile:nth-child(2) span {
         left: 9%;
         right: 15%;
@@ -502,6 +500,10 @@
 
       .catalog-section {
         padding: clamp(70px, 9vw, 120px) 0;
+      }
+
+      .catalog-section > .section-head h2 {
+        color: var(--clay);
       }
 
       .section-head {
@@ -544,8 +546,12 @@
         width: min(330px, 100%);
       }
 
+      .catalog-tools input[type="hidden"] {
+        display: none;
+      }
+
       .notice {
-        display: inline-flex;
+        display: none;
         max-width: 100%;
         margin-top: 18px;
         padding: 12px 16px;
@@ -621,19 +627,62 @@
       }
 
       .catalog-grid .product-card:nth-child(4n + 1) {
-        --blob-a: 34% 66% 29% 71% / 68% 26% 74% 32%;
+        --media-a: 58% 42% 35% 65% / 43% 61% 39% 57%;
+        --media-b: 36% 64% 62% 38% / 59% 37% 63% 41%;
+        --media-speed: 13s;
+        --media-delay: -1.5s;
+        --media-rotate: -8deg;
+        --media-x: -3%;
+        --media-y: 1%;
       }
 
       .catalog-grid .product-card:nth-child(4n + 2) {
-        --blob-a: 62% 38% 54% 46% / 39% 63% 37% 61%;
+        --media-a: 39% 61% 68% 32% / 58% 35% 65% 42%;
+        --media-b: 72% 28% 44% 56% / 36% 68% 32% 64%;
+        --media-speed: 21s;
+        --media-delay: -10s;
+        --media-rotate: 7deg;
+        --media-x: 2%;
+        --media-y: -2%;
       }
 
       .catalog-grid .product-card:nth-child(4n + 3) {
-        --blob-a: 43% 57% 31% 69% / 58% 33% 67% 42%;
+        --media-a: 69% 31% 51% 49% / 35% 63% 37% 65%;
+        --media-b: 41% 59% 29% 71% / 65% 39% 61% 35%;
+        --media-speed: 11s;
+        --media-delay: -3.25s;
+        --media-rotate: 3deg;
+        --media-x: 4%;
+        --media-y: 2%;
       }
 
       .catalog-grid .product-card:nth-child(4n) {
-        --blob-a: 59% 41% 67% 33% / 32% 58% 42% 68%;
+        --media-a: 47% 53% 33% 67% / 69% 43% 57% 31%;
+        --media-b: 64% 36% 73% 27% / 38% 62% 38% 62%;
+        --media-speed: 16s;
+        --media-delay: -7s;
+        --media-rotate: -4deg;
+        --media-x: -1%;
+        --media-y: -3%;
+      }
+
+      .catalog-grid .product-card:nth-child(6n + 1) {
+        --media-a: 31% 69% 56% 44% / 42% 70% 30% 58%;
+        --media-b: 68% 32% 37% 63% / 61% 34% 66% 39%;
+        --media-rotate: 9deg;
+      }
+
+      .catalog-grid .product-card:nth-child(6n + 4) {
+        --media-a: 72% 28% 62% 38% / 48% 31% 69% 52%;
+        --media-b: 35% 65% 49% 51% / 32% 70% 30% 68%;
+        --media-rotate: -10deg;
+      }
+
+      .catalog-grid .product-card:nth-child(7n + 5) {
+        --media-a: 44% 56% 27% 73% / 54% 39% 61% 46%;
+        --media-b: 63% 37% 70% 30% / 34% 66% 34% 66%;
+        --media-delay: -11s;
+        --media-rotate: 5deg;
       }
 
       .product-card {
@@ -658,17 +707,41 @@
       }
 
       .product-media {
+        --media-a: 54% 46% 31% 69% / 36% 59% 41% 64%;
+        --media-b: 38% 62% 58% 42% / 52% 34% 66% 48%;
+        --media-speed: 14s;
+        --media-delay: 0s;
+        --media-rotate: 0deg;
+        --media-x: 0%;
+        --media-y: 0%;
         position: relative;
         display: block;
-        width: 100%;
+        width: 92%;
+        margin: 6px auto 0;
         padding: 0;
         border: 0;
-        aspect-ratio: 4 / 4.45;
+        aspect-ratio: 1 / 1.06;
         overflow: hidden;
-        border-radius: 54% 46% 31% 69% / 36% 59% 41% 64%;
+        border-radius: var(--media-a);
         background: var(--solid-color, var(--cream-2));
         color: inherit;
         cursor: zoom-in;
+        animation: mediaBlob var(--media-speed) ease-in-out infinite;
+        animation-delay: var(--media-delay);
+      }
+
+      .catalog-grid .product-card:nth-child(2n) .product-media {
+        animation-direction: reverse;
+      }
+
+      .catalog-grid .product-card:nth-child(3n) .product-media {
+        width: 86%;
+        aspect-ratio: 1.04 / 1;
+      }
+
+      .catalog-grid .product-card:nth-child(5n) .product-media {
+        width: 94%;
+        aspect-ratio: 1 / 0.92;
       }
 
       .product-media::before {
@@ -683,6 +756,21 @@
 
       .product-card:hover .product-media::before {
         transform: scale(1.09) rotate(-1deg);
+      }
+
+      @keyframes mediaBlob {
+        0%, 100% {
+          border-radius: var(--media-a);
+          transform: translate3d(var(--media-x), var(--media-y), 0) rotate(var(--media-rotate)) scaleX(var(--media-flip, 1));
+        }
+        50% {
+          border-radius: var(--media-b);
+          transform: translate3d(calc(var(--media-x) * -1), calc(var(--media-y) * -1), 0) rotate(calc(var(--media-rotate) * -1)) scaleX(var(--media-flip, 1));
+        }
+      }
+
+      .catalog-grid .product-card:nth-child(even) {
+        --media-flip: -1;
       }
 
       .product-body {
@@ -705,14 +793,6 @@
         line-height: 1.5;
       }
 
-      .product-meta {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 10px;
-        padding-top: 6px;
-      }
-
       .quick-config {
         display: grid;
         gap: 8px;
@@ -725,10 +805,7 @@
       }
 
       .quick-config summary {
-        color: var(--sage);
-        cursor: pointer;
-        font-size: 0.82rem;
-        font-weight: 800;
+        display: none;
       }
 
       .quick-config select {
@@ -740,6 +817,35 @@
         background: white;
         color: var(--ink);
         padding: 0 10px;
+      }
+
+      .option-help {
+        position: relative;
+        width: 100%;
+        box-sizing: border-box;
+        margin: 4px auto 2px;
+        padding: 6px 9px 7px;
+        border: 1px solid rgba(216, 203, 183, 0.92);
+        border-radius: 10px;
+        background: rgba(255, 253, 247, 0.96);
+        color: var(--muted);
+        font-size: 0.7rem;
+        line-height: 1.28;
+        text-align: center;
+        box-shadow: 0 6px 16px rgba(69, 47, 28, 0.05);
+      }
+
+      .option-help::before {
+        content: "";
+        position: absolute;
+        top: -6px;
+        left: 50%;
+        width: 10px;
+        height: 10px;
+        border-left: 1px solid rgba(216, 203, 183, 0.82);
+        border-top: 1px solid rgba(216, 203, 183, 0.82);
+        background: rgba(255, 253, 247, 0.96);
+        transform: translateX(-50%) rotate(45deg);
       }
 
       .reserve-row {
@@ -1183,7 +1289,7 @@
         }
 
         .hero::before {
-          clip-path: ellipse(132% 72% at 42% 4%);
+          clip-path: ellipse(138% 82% at 42% 3%);
         }
 
         .hero-art {
@@ -1257,6 +1363,16 @@
           grid-template-columns: 1fr;
         }
       }
+
+      @media (min-width: 1300px) {
+        .hero h1 {
+          font-size: clamp(4.8rem, 5.55vw, 5.8rem);
+        }
+
+        .hero-copy {
+          max-width: 650px;
+        }
+      }
     </style>
   </head>
   <body>
@@ -1283,10 +1399,6 @@
             <p class="eyebrow">Repostería ética y consciente</p>
             <h1>Pastelería vegana inspirada en el alma botánica.</h1>
             <p class="hero-copy">Tortas hechas a pedido, con ingredientes de origen vegetal, sabores naturales y una ficha clara para elegir sin perder la magia del catálogo.</p>
-            <div class="hero-actions">
-              <a class="button" href="#catalogo">Ver catálogo</a>
-            </div>
-            <div id="dataNotice" class="notice" hidden></div>
           </div>
           <div class="hero-art" aria-label="Torta vegana artesanal">
             <div class="hero-photo" aria-hidden="true"></div>
@@ -1301,9 +1413,8 @@
         <div class="shell category-band">
           <div class="category-heading">
             <div>
-              <h2>Elige una familia</h2>
+              <h2>Elige una categoría</h2>
             </div>
-            <a class="category-jump-inline" href="#categorias">Elegir por categoría</a>
           </div>
           <div id="categoryLanding" class="category-grid"></div>
         </div>
@@ -1316,7 +1427,7 @@
           </div>
           <div class="catalog-tools">
             <select id="categoryFilter" aria-label="Filtrar por categoría"></select>
-            <input id="searchInput" type="search" placeholder="Buscar por nombre, sabor o relleno" autocomplete="off" />
+            <input id="searchInput" type="hidden" value="" />
           </div>
         </div>
         <div id="catalogGrid" class="catalog-grid" aria-live="polite"></div>
@@ -1482,7 +1593,10 @@
 
       function bind() {
         window.addEventListener("hashchange", syncRoute);
-        document.querySelectorAll("[data-route]").forEach((link) => link.addEventListener("click", () => setTimeout(syncRoute, 0)));
+        document.querySelectorAll("[data-route]").forEach((link) => link.addEventListener("click", () => {
+          if (link.dataset.route === "catalogo") showFullCatalog();
+          setTimeout(syncRoute, 0);
+        }));
         els.search.addEventListener("input", renderCatalog);
         els.categoryFilter.addEventListener("change", renderCatalog);
         els.close.addEventListener("click", closeDetail);
@@ -1526,6 +1640,7 @@
       }
 
       function updateNotice() {
+        if (!els.notice) return;
         const failed = Object.keys(state.errors);
         if (failed.length) {
           els.notice.innerHTML = `<strong>No pude leer los CSV.</strong> Fallaron: ${escapeHtml(failed.join(", "))}.`;
@@ -1559,6 +1674,12 @@
             location.hash = "#catalogo";
           });
         });
+      }
+
+      function showFullCatalog() {
+        if (els.categoryFilter) els.categoryFilter.value = "";
+        if (els.search) els.search.value = "";
+        renderCatalog();
       }
 
       function renderCatalog() {
@@ -1631,24 +1752,19 @@
       function cardTemplate(product, index) {
         const id = productId(product);
         const color = solidColor(index);
+        const formats = formatsForProduct(product);
+        const hasDecoration = productUsesDecoration(product);
         return `
           <article class="product-card" data-product="${escapeHtml(id)}" data-base-price="${number(product.precio)}" data-product-name="${escapeHtml(product.nombre || "Producto vegano")}">
             <button class="product-media" type="button" style="--solid-color:${escapeHtml(color)}" data-solid-open="${escapeHtml(color)}" data-image-alt="${escapeHtml(product.nombre || "Producto vegano")}">
             </button>
             <div class="product-body">
               <h3>${escapeHtml(product.nombre || "Producto vegano")}</h3>
-              <p>${escapeHtml(short(product.descripcion || product.descripcion_poetica || product.relleno || "Producto vegano a pedido.", 118))}</p>
-              <div class="product-meta">
-                <span class="price" data-card-price>${formatMoney(number(product.precio)) || "A confirmar"}</span>
-              </div>
+              <p>${escapeHtml(product.descripcion || product.descripcion_poetica || product.relleno || "Producto vegano a pedido.")}</p>
               <div class="quick-config" data-stop-card>
-                <details>
-                  <summary>Formato y extras</summary>
-                  <select data-quick-format>${quickOptions(state.formatos, "Formato estándar")}</select>
-                  <select data-quick-decoration>${quickOptions(state.decoraciones, "Decoración simple")}</select>
-                </details>
+                <select data-quick-format aria-label="Formato">${formatOptions(formats, product)}</select>
+                ${hasDecoration ? `<select data-quick-decoration aria-label="Decoración">${quickOptions(state.decoraciones, "Decoración", "extra", true)}</select><p class="option-help" data-decoration-help></p>` : ""}
                 <div class="reserve-row">
-                  <strong data-card-total>${formatMoney(number(product.precio)) || "A confirmar"}</strong>
                   <button class="reserve-button" type="button" data-reserve>Reservar pedido</button>
                 </div>
               </div>
@@ -1656,13 +1772,51 @@
           </article>`;
       }
 
-      function quickOptions(rows, fallback) {
-        return [`<option value="" data-price="0">${escapeHtml(fallback)}</option>`]
-          .concat(rows.slice(0, 8).map((row, index) => `<option value="${index}" data-price="${number(row.precio_extra || row.precio)}">${escapeHtml(row.nombre || row.porciones || row.categoria || "Opción")}</option>`))
-          .join("");
+      function quickOptions(rows, fallback, priceMode = "extra", includeDescription = false) {
+        if (!rows.length) return `<option value="" data-price="0">${escapeHtml(fallback)}</option>`;
+        return rows.slice(0, 8).map((row, index) => {
+          const description = includeDescription ? row.descripcion || "" : "";
+          return `<option value="${index}" data-price="${number(priceMode === "price" ? row.precio : row.precio_extra)}" data-description="${escapeHtml(description)}" title="${escapeHtml(description)}">${escapeHtml(row.nombre || row.porciones || row.categoria || "Opción")}</option>`;
+        }).join("");
+      }
+
+
+
+      function formatOptions(rows, product) {
+        const base = number(product.precio || product.precio_desde);
+        if (!rows.length) {
+          const fallback = base ? `Precio único - ${formatMoney(base)}` : "Precio único";
+          return `<option value="" data-price="${base}">${escapeHtml(fallback)}</option>`;
+        }
+        return rows.map((row, index) => `<option value="${index}" data-price="${number(row.precio)}">${escapeHtml(formatLabel(row))}</option>`).join("");
+      }
+
+      function productUsesDecoration(product) {
+        const category = clean(product.categoria);
+        return category.includes("torta") || category.includes("tarta");
+      }
+
+      function formatsForProduct(product) {
+        const category = clean(product.categoria);
+        const formats = state.formatos.filter((row) => clean(row.categoria) === category);
+        if (formats.length) return formats;
+        const ref = clean(product.formato_ref);
+        return state.formatos.filter((row) => ref.includes(clean(row.categoria)));
+      }
+
+      function formatLabel(row) {
+        const parts = [
+          row.nombre,
+          row.personas ? `${row.personas} personas` : "",
+          row.porciones,
+          row.diametro_cm ? `${row.diametro_cm} cm` : "",
+          number(row.precio) ? formatMoney(number(row.precio)) : ""
+        ].filter(Boolean);
+        return parts.join(" · ");
       }
 
       function selectedQuick(select) {
+        if (!select) return { label: "No aplica", price: 0 };
         const option = select.options[select.selectedIndex];
         return {
           label: option?.textContent || "Sin ajuste",
@@ -1670,14 +1824,22 @@
         };
       }
 
+      function updateDecorationHelp(card) {
+        if (!card) return;
+        const select = card.querySelector("[data-quick-decoration]");
+        const help = card.querySelector("[data-decoration-help]");
+        if (!select || !help) return;
+        const option = select.options[select.selectedIndex];
+        help.textContent = option?.dataset.description || "";
+      }
+
       function updateCardPrice(card) {
         if (!card) return;
-        const base = number(card.dataset.basePrice);
         const format = selectedQuick(card.querySelector("[data-quick-format]"));
         const decoration = selectedQuick(card.querySelector("[data-quick-decoration]"));
-        const total = base + format.price + decoration.price;
-        card.querySelector("[data-card-price]").textContent = base ? `Desde ${formatMoney(base)}` : "A confirmar";
-        card.querySelector("[data-card-total]").textContent = total ? formatMoney(total) : "A confirmar";
+        const total = format.price + decoration.price;
+        card.dataset.currentTotal = String(total);
+        updateDecorationHelp(card);
       }
 
       function addReservation(card) {
@@ -1686,7 +1848,7 @@
         if (!product) return;
         const format = selectedQuick(card.querySelector("[data-quick-format]"));
         const decoration = selectedQuick(card.querySelector("[data-quick-decoration]"));
-        const total = number(product.precio) + format.price + decoration.price;
+        const total = format.price + decoration.price;
         state.reservas.push({
           name: product.nombre || "Producto vegano",
           category: product.categoria || "Catálogo",
@@ -1694,7 +1856,7 @@
           relleno: product.relleno || "según catálogo",
           cubierta: product.cubierta || "según catálogo",
           format: format.label,
-          decoration: decoration.label,
+          decoration: productUsesDecoration(product) ? decoration.label : "No aplica",
           total
         });
         renderSummary();
@@ -1727,17 +1889,20 @@
           return;
         }
         const total = state.reservas.reduce((sum, item) => sum + number(item.total), 0);
-        els.summaryList.innerHTML = state.reservas.map((item, index) => `
-          <article class="summary-item">
-            <h3>${escapeHtml(item.name)}</h3>
-            <p><strong>${escapeHtml(item.category)}</strong> · ${escapeHtml(item.format)} · ${escapeHtml(item.decoration)}</p>
-            <p>Bizcocho: ${escapeHtml(item.bizcocho)}<br>Relleno: ${escapeHtml(item.relleno)}<br>Cubierta: ${escapeHtml(item.cubierta)}</p>
-            <div class="reserve-row">
-              <strong>${item.total ? formatMoney(item.total) : "A confirmar"}</strong>
-              <button class="reserve-button" type="button" data-remove-reservation="${index}">Quitar</button>
-            </div>
-          </article>
-        `).join("");
+        els.summaryList.innerHTML = state.reservas.map((item, index) => {
+          const meta = [item.category, item.format, item.decoration !== "No aplica" ? item.decoration : ""].filter(Boolean).join(" · ");
+          return `
+            <article class="summary-item">
+              <h3>${escapeHtml(item.name)}</h3>
+              <p><strong>${escapeHtml(meta)}</strong></p>
+              <p>Bizcocho: ${escapeHtml(item.bizcocho)}<br>Relleno: ${escapeHtml(item.relleno)}<br>Cubierta: ${escapeHtml(item.cubierta)}</p>
+              <div class="reserve-row">
+                <strong>${item.total ? formatMoney(item.total) : "A confirmar"}</strong>
+                <button class="reserve-button" type="button" data-remove-reservation="${index}">Quitar</button>
+              </div>
+            </article>
+          `;
+        }).join("");
         els.summaryTotal.textContent = total ? formatMoney(total) : "A confirmar";
         els.finalWhatsapp.href = whatsappLink(summaryMessage(total));
       }
@@ -1750,9 +1915,9 @@
           `Relleno: ${item.relleno}`,
           `Cubierta: ${item.cubierta}`,
           `Formato: ${item.format}`,
-          `Decoración: ${item.decoration}`,
+          item.decoration !== "No aplica" ? `Decoración: ${item.decoration}` : "",
           `Estimado: ${item.total ? formatMoney(item.total) : "a confirmar"}`
-        ].join("\n"));
+        ].filter(Boolean).join("\n"));
         return `Hola Cocina Libre, quiero reservar/cotizar este pedido vegano:\n\n${lines.join("\n\n")}\n\nTotal estimado: ${total ? formatMoney(total) : "a confirmar"}\nQuedo atento/a para confirmar fecha, disponibilidad y precio final.`;
       }
 
@@ -1914,9 +2079,9 @@
       function selected(select, rows) { return select.value === "" ? null : rows[Number(select.value)]; }
       function productId(product) { return product.id || cleanKey(product.nombre || JSON.stringify(product)); }
       function isVisible(row) { return ![row.disponible, row.activo].map((value) => String(value || "").toLowerCase().trim()).some((value) => ["no", "false", "0", "oculto", "inactivo"].includes(value)); }
-      function cleanKey(value) { return String(value || "").trim().toLowerCase().normalize("NFD").replace(/[\\u0300-\\u036f]/g, "").replace(/[^a-z0-9]+/g, "_").replace(/^_|_$/g, ""); }
-      function clean(value) { return String(value || "").toLowerCase().normalize("NFD").replace(/[\\u0300-\\u036f]/g, ""); }
-      function number(value) { return Number.parseFloat(String(value || "").replace(/[^\\d,-]/g, "").replace(",", ".")) || 0; }
+      function cleanKey(value) { return String(value || "").trim().toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]+/g, "_").replace(/^_|_$/g, ""); }
+      function clean(value) { return String(value || "").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, ""); }
+      function number(value) { return Number.parseFloat(String(value || "").replace(/[^\d,-]/g, "").replace(",", ".")) || 0; }
       function formatMoney(value) { return value ? new Intl.NumberFormat("es-CL", { style: "currency", currency: "CLP", maximumFractionDigits: 0 }).format(value) : ""; }
       function signedMoney(value) { return value ? `${value > 0 ? "+" : ""}${formatMoney(value)}` : "+$0"; }
       function short(value, max) { return value && value.length > max ? value.slice(0, max - 1).trim() + "..." : value; }
