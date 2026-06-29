@@ -1,4 +1,4 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="es">
   <head>
     <meta charset="utf-8" />
@@ -288,8 +288,10 @@
         position: absolute;
         inset: 0;
         background:
-          radial-gradient(circle at 74% 26%, rgba(255, 253, 247, 0.32), transparent 0 18%, transparent 22%),
-          linear-gradient(135deg, #7d8a68 0 42%, #c06a34 42% 72%, #e8bb8a 72% 100%);
+          linear-gradient(135deg, rgba(74, 91, 65, 0.16), rgba(176, 98, 51, 0.10)),
+          url("assets/builder/portad1.jpg");
+        background-size: cover;
+        background-position: center;
       }
 
       .hero-photo::after {
@@ -373,6 +375,7 @@
       .category-tile {
         --blob-a: 62% 38% 34% 66% / 48% 34% 66% 52%;
         --blob-b: 38% 62% 57% 43% / 57% 43% 57% 43%;
+        --tile-color: var(--sage);
         position: relative;
         min-height: clamp(150px, 18vw, 224px);
         aspect-ratio: 1.08;
@@ -386,6 +389,24 @@
         box-shadow: 0 18px 42px rgba(66, 41, 24, 0.16);
         animation: blobBreath var(--blob-speed, 14s) ease-in-out infinite;
         animation-delay: var(--blob-delay, 0s);
+      }
+
+      .category-tile--photo {
+        background: var(--tile-color);
+      }
+
+      .category-tile--photo::before {
+        content: "";
+        position: absolute;
+        inset: 13px;
+        z-index: 0;
+        border: 8px solid var(--tile-color);
+        border-radius: inherit;
+        background-image: var(--tile-image);
+        background-size: cover;
+        background-position: center;
+        box-shadow: inset 0 0 0 1px rgba(255,255,255,0.22);
+        transform: rotate(-1deg) scale(1.01);
       }
 
       .category-tile:nth-child(1) {
@@ -424,6 +445,7 @@
         content: "";
         position: absolute;
         inset: 0;
+        z-index: 1;
         background:
           radial-gradient(circle at 74% 24%, rgba(255,255,255,0.22), transparent 0 18%, transparent 22%),
           linear-gradient(180deg, rgba(18,15,10,0.02), rgba(18,15,10,0.16));
@@ -719,7 +741,7 @@
         width: 92%;
         margin: 6px auto 0;
         padding: 0;
-        border: 0;
+        border: 9px solid var(--solid-color, var(--cream-2));
         aspect-ratio: 1 / 1.06;
         overflow: hidden;
         border-radius: var(--media-a);
@@ -750,7 +772,10 @@
         inset: 0;
         background:
           radial-gradient(circle at 72% 24%, rgba(255,255,255,0.28), transparent 0 16%, transparent 21%),
-          linear-gradient(145deg, rgba(255,255,255,0.14), rgba(31,24,15,0.18));
+          linear-gradient(145deg, rgba(255,255,255,0.14), rgba(31,24,15,0.18)),
+          var(--media-image, linear-gradient(var(--solid-color), var(--solid-color)));
+        background-size: cover;
+        background-position: center;
         transition: transform 700ms ease;
       }
 
@@ -895,32 +920,38 @@
 
       .builder-box {
         display: grid;
-        grid-template-columns: minmax(0, 0.86fr) minmax(360px, 1.14fr);
-        gap: 28px;
+        width: min(1500px, calc(100% - 120px));
+        grid-template-columns: 440px minmax(820px, 1fr);
+        gap: clamp(72px, 6vw, 104px);
         align-items: center;
       }
 
       .builder-box h2 {
-        max-width: 740px;
-        font-size: clamp(2.3rem, 5vw, 5rem);
-        line-height: 0.95;
+        max-width: 440px;
+        font-size: clamp(2.45rem, 3.7vw, 4rem);
+        line-height: 0.94;
+      }
+
+      .builder-title-line {
+        display: block;
+        white-space: nowrap;
       }
 
       .builder-box p {
-        max-width: 660px;
+        max-width: 460px;
         color: rgba(255,255,255,0.76);
         line-height: 1.65;
       }
 
       .builder-card {
         display: grid;
-        grid-template-columns: minmax(220px, 0.8fr) minmax(220px, 1fr);
-        gap: 18px;
+        grid-template-columns: minmax(500px, 560px) minmax(300px, 320px);
+        gap: clamp(56px, 4vw, 78px);
         align-items: center;
-        padding: 24px;
-        border: 1px solid rgba(255,255,255,0.18);
-        border-radius: 42px 110px 42px 110px;
-        background: rgba(255,255,255,0.08);
+        padding: 24px 0;
+        border: 0;
+        border-radius: 0;
+        background: transparent;
       }
 
       .builder-card a {
@@ -930,65 +961,629 @@
 
       .layer-cake {
         position: relative;
-        min-height: 330px;
+        min-height: 0;
+        display: grid;
+        gap: 4px;
+        isolation: isolate;
+        overflow: visible;
+      }
+
+      .layer-cake::before {
+        content: none;
+        position: absolute;
+        left: 45%;
+        bottom: 28px;
+        width: 74%;
+        height: 34px;
+        border-radius: 50%;
+        background: rgba(20, 18, 14, 0.22);
+        filter: blur(8px);
+        transform: translateX(-50%) rotate(-3deg);
+        z-index: -1;
+      }
+
+      .layer-cake::after {
+        content: none;
+        position: absolute;
+        left: 12%;
+        top: 16%;
+        width: 58px;
+        height: 180px;
+        border-left: 1px solid rgba(255,255,255,0.18);
+        border-radius: 70% 0 0 50%;
+        opacity: 0.7;
       }
 
       .layer {
         position: absolute;
-        left: 50%;
-        width: 78%;
-        transform: translateX(-50%);
-        border-radius: 38px 38px 18px 18px;
-        box-shadow: inset 0 -16px 24px rgba(0,0,0,0.18);
+        left: 43%;
+        width: min(66%, 310px);
+        transform: translateX(-50%) rotate(-2deg);
+        box-shadow: inset 0 -16px 26px rgba(81,45,28,0.13), 0 18px 30px rgba(28, 22, 15, 0.18);
       }
 
       .layer.top {
-        top: 28px;
-        height: 78px;
-        background: #542519;
+        top: 36px;
+        height: 92px;
+        border-radius: 53% 47% 49% 51% / 34% 38% 62% 66%;
+        background:
+          radial-gradient(circle at 28% 32%, #7c4a2e 0 5px, transparent 6px),
+          radial-gradient(circle at 46% 22%, #d9a441 0 5px, transparent 6px),
+          radial-gradient(circle at 62% 35%, #6f7d55 0 6px, transparent 7px),
+          radial-gradient(circle at 72% 20%, #5b2b22 0 4px, transparent 5px),
+          radial-gradient(ellipse at 36% 58%, rgba(255,255,255,0.72), transparent 42%),
+          linear-gradient(160deg, #fff3df, #e6c394 58%, #bd7a4d);
+      }
+
+      .layer.top::before,
+      .layer.top::after,
+      .layer.fill::before,
+      .layer.base::before {
+        content: "";
+        position: absolute;
+        pointer-events: none;
+      }
+
+      .layer.top::before {
+        inset: 18px 20px auto 20px;
+        height: 26px;
+        border-radius: 50%;
+        border-top: 8px solid rgba(255,255,255,0.54);
+        transform: rotate(-2deg);
+      }
+
+      .layer.top::after {
+        left: 24%;
+        top: 12%;
+        width: 9px;
+        height: 9px;
+        border-radius: 50%;
+        background: #5b2b22;
+        box-shadow:
+          34px 12px 0 #d9a441,
+          68px 2px 0 #6f7d55,
+          96px 18px 0 #7c4a2e,
+          124px 5px 0 #f1d5b8,
+          142px 24px 0 #5b2b22;
       }
 
       .layer.fill {
-        top: 114px;
-        height: 38px;
-        background: #e2a84c;
+        top: 182px;
+        height: 88px;
+        width: min(70%, 330px);
+        border-radius: 54% 46% 43% 57% / 35% 40% 60% 65%;
+        background:
+          radial-gradient(circle at 30% 34%, rgba(255,255,255,0.45), transparent 20%),
+          radial-gradient(circle at 55% 25%, #d9bd7a 0 13px, transparent 14px),
+          radial-gradient(circle at 42% 38%, #f4e2bd 0 16px, transparent 17px),
+          linear-gradient(90deg, #f3d9a9, #e5bc78 52%, #c98950);
+        transform: translateX(-50%) rotate(2deg);
+      }
+
+      .layer.fill::before {
+        left: 15%;
+        top: 14px;
+        width: 72%;
+        height: 24px;
+        border-radius: 999px;
+        background: linear-gradient(90deg, transparent, #9e5b2f 18%, #c77937 42%, transparent 78%);
+        transform: rotate(-5deg);
       }
 
       .layer.base {
-        top: 160px;
-        height: 92px;
-        background: #2d1510;
+        top: 318px;
+        height: 112px;
+        width: min(62%, 295px);
+        border-radius: 48% 52% 45% 55% / 22% 27% 73% 78%;
+        background:
+          radial-gradient(circle at 18% 34%, rgba(255,255,255,0.11) 0 2px, transparent 3px),
+          radial-gradient(circle at 34% 68%, rgba(255,255,255,0.09) 0 2px, transparent 3px),
+          radial-gradient(circle at 72% 45%, rgba(255,255,255,0.1) 0 2px, transparent 3px),
+          radial-gradient(circle at 52% 28%, #1c0e0a 0 5px, transparent 6px),
+          linear-gradient(145deg, #6b3328, #351813 72%);
+      }
+
+      .layer.base::before {
+        left: 14%;
+        top: -34px;
+        width: 5px;
+        height: 5px;
+        border-radius: 50%;
+        background: rgba(255,241,219,0.72);
+        box-shadow:
+          28px -18px 0 rgba(255,241,219,0.45),
+          58px 4px 0 rgba(255,241,219,0.52),
+          94px -26px 0 rgba(255,241,219,0.38),
+          126px -8px 0 rgba(255,241,219,0.5),
+          158px -30px 0 rgba(255,241,219,0.32);
       }
 
       .layer-label {
         position: absolute;
-        right: 4%;
-        padding: 7px 10px;
-        border-radius: 999px;
-        background: rgba(255,255,255,0.92);
-        color: var(--sage);
+        right: 0;
+        width: min(34%, 150px);
+        color: rgba(255,255,255,0.88);
         font-size: 0.78rem;
-        font-weight: 800;
+        line-height: 1.25;
+        font-weight: 600;
       }
 
-      .layer-label:nth-of-type(1) { top: 40px; }
-      .layer-label:nth-of-type(2) { top: 112px; }
-      .layer-label:nth-of-type(3) { top: 170px; }
+      .layer-label::before {
+        content: "";
+        position: absolute;
+        right: calc(100% + 9px);
+        top: 16px;
+        width: 66px;
+        height: 1px;
+        background: rgba(255,255,255,0.66);
+      }
+
+      .layer-label::after {
+        content: "";
+        position: absolute;
+        right: calc(100% + 72px);
+        top: 11px;
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: rgba(255,253,247,0.96);
+        box-shadow: 0 0 0 5px rgba(255,255,255,0.14);
+      }
+
+      .layer-label strong {
+        display: block;
+        color: #fff8ec;
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: clamp(1.2rem, 2vw, 1.55rem);
+        line-height: 1;
+        margin-bottom: 5px;
+      }
+
+      .layer-label.top-note { top: 64px; }
+      .layer-label.fill-note { top: 212px; }
+      .layer-label.base-note { top: 348px; }
+
+      .cake-photo {
+        display: block;
+        width: min(88%, 360px);
+        height: auto;
+        object-fit: contain;
+        margin: 0 auto;
+        pointer-events: none;
+        user-select: none;
+        filter: drop-shadow(0 16px 22px rgba(18, 15, 10, 0.22));
+      }
+
+      .cake-photo.topping {
+        width: min(80%, 320px);
+      }
+
+      .cake-photo.cream {
+        width: min(74%, 360px);
+      }
+
+      .cake-photo.base {
+        width: min(76%, 340px);
+      }
+
+      .cake-step {
+        display: grid;
+        gap: 8px;
+        margin-bottom: 22px;
+      }
+
+      .cake-step:last-child {
+        margin-bottom: 0;
+      }
+
+      .cake-step-text {
+        display: block;
+        max-width: 320px;
+        margin: 0 auto;
+        color: rgba(255,255,255,0.82);
+        font-size: 0.78rem;
+        line-height: 1.25;
+        font-weight: 600;
+        text-align: center;
+      }
+
+      .cake-step-text strong {
+        display: block;
+        color: #fff8ec;
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: clamp(1.25rem, 2vw, 1.7rem);
+        line-height: 1;
+        margin-bottom: 5px;
+      }
+
+      .layer-cake {
+        min-height: 500px;
+        display: block;
+      }
+
+      .cake-step {
+        display: contents;
+      }
+
+      .cake-step-text {
+        position: absolute;
+        right: 4%;
+        width: min(32%, 150px);
+        max-width: none;
+        margin: 0;
+        text-align: left;
+        color: rgba(255,255,255,0.88);
+      }
+
+      .cake-step-text::before {
+        content: "";
+        position: absolute;
+        right: calc(100% + 9px);
+        top: 16px;
+        width: 58px;
+        height: 1px;
+        background: rgba(255,255,255,0.66);
+      }
+
+      .cake-step-text::after {
+        content: "";
+        position: absolute;
+        right: calc(100% + 64px);
+        top: 11px;
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: rgba(255,253,247,0.96);
+        box-shadow: 0 0 0 5px rgba(255,255,255,0.14);
+      }
+
+      .cake-step:nth-child(1) .cake-step-text { top: 62px; }
+      .cake-step:nth-child(2) .cake-step-text { top: 218px; }
+      .cake-step:nth-child(3) .cake-step-text { top: 372px; }
+
+      .cake-photo {
+        position: absolute;
+        left: 33%;
+        margin: 0;
+        transform: translateX(-50%);
+      }
+
+      .cake-photo.topping {
+        top: 32px;
+        width: min(58%, 285px);
+        transform: translateX(-50%) rotate(-2deg);
+      }
+
+      .cake-photo.cream {
+        top: 184px;
+        width: min(64%, 320px);
+        transform: translateX(-50%) rotate(1.2deg);
+      }
+
+      .cake-photo.base {
+        top: 334px;
+        width: min(60%, 300px);
+        transform: translateX(-50%) rotate(-1deg);
+      }
+
+      .builder-card .layer-cake {
+        min-height: 0;
+        display: grid;
+        gap: 18px;
+        width: 100%;
+        border: 0;
+        border-radius: 0;
+        overflow: visible;
+      }
+
+      .builder-card .cake-step {
+        display: grid;
+        gap: 8px;
+      }
+
+      .builder-card .cake-photo {
+        position: static;
+        left: auto;
+        display: block;
+        margin: 0 auto;
+        transform: none;
+      }
+
+      .builder-card .cake-photo.topping {
+        width: min(54%, 300px);
+        transform: rotate(-2deg);
+      }
+
+      .builder-card .cake-photo.cream {
+        width: min(62%, 350px);
+        transform: rotate(1.2deg);
+      }
+
+      .builder-card .cake-photo.base {
+        width: min(58%, 330px);
+        transform: rotate(-1deg);
+      }
+
+      .builder-card .cake-step-text {
+        position: static;
+        left: auto;
+        right: auto;
+        width: min(90%, 340px);
+        max-width: none;
+        margin: 0 auto;
+        transform: none;
+        text-align: center;
+        padding: 0;
+        border-radius: 0;
+        background: transparent;
+        backdrop-filter: none;
+        text-shadow: none;
+      }
+
+      .builder-card .cake-step-text::before {
+        content: none;
+        position: absolute;
+        right: calc(100% + 9px);
+        top: 16px;
+        width: 54px;
+        height: 1px;
+        background: rgba(255,255,255,0.66);
+      }
+
+      .builder-card .cake-step-text::after {
+        content: none;
+        position: absolute;
+        right: calc(100% + 60px);
+        top: 11px;
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: rgba(255,253,247,0.96);
+        box-shadow: 0 0 0 5px rgba(255,255,255,0.14);
+      }
+
+      .builder-form {
+        width: 100%;
+        max-width: 330px;
+        margin: 0 0 0 auto;
+      }
+
+      .builder-card .layer-cake {
+        display: block;
+        position: relative;
+        min-height: 610px;
+        width: 100%;
+        overflow: visible;
+      }
+
+      .builder-card .cake-step {
+        display: contents;
+      }
+
+      .builder-card .cake-photo {
+        position: absolute;
+        left: 30%;
+        display: block;
+        margin: 0;
+        object-fit: contain;
+        transform: translateX(-50%);
+        filter: drop-shadow(0 18px 26px rgba(18, 15, 10, 0.24));
+        z-index: 1;
+      }
+
+      .builder-card .cake-photo.topping {
+        top: 16px;
+        width: min(58%, 330px);
+        transform: translateX(-50%) rotate(-2deg);
+      }
+
+      .builder-card .cake-photo.cream {
+        top: 216px;
+        width: min(64%, 360px);
+        transform: translateX(-50%) rotate(1deg);
+      }
+
+      .builder-card .cake-photo.base {
+        top: 438px;
+        width: min(60%, 340px);
+        transform: translateX(-50%) rotate(-1deg);
+      }
+
+      .builder-card .cake-step-text {
+        position: absolute;
+        left: auto;
+        right: 0;
+        width: min(35%, 190px);
+        max-width: none;
+        margin: 0;
+        padding: 0;
+        background: transparent;
+        color: rgba(255,255,255,0.88);
+        text-align: left;
+        text-shadow: none;
+        transform: none;
+        z-index: 3;
+      }
+
+      .builder-card .cake-step-text::before {
+        content: "";
+        position: absolute;
+        right: calc(100% + 9px);
+        top: 16px;
+        width: 88px;
+        height: 1px;
+        background: rgba(255,255,255,0.66);
+        z-index: 4;
+      }
+
+      .builder-card .cake-step-text::after {
+        content: "";
+        position: absolute;
+        right: calc(100% + 94px);
+        top: 11px;
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: rgba(255,253,247,0.96);
+        box-shadow: 0 0 0 5px rgba(255,255,255,0.14);
+        z-index: 5;
+      }
+
+      .builder-card .cake-step:nth-child(1) .cake-step-text { top: 78px; }
+      .builder-card .cake-step:nth-child(2) .cake-step-text { top: 286px; }
+      .builder-card .cake-step:nth-child(3) .cake-step-text { top: 494px; }
+
+      .builder-card .cake-step:nth-child(2) .cake-step-text::before {
+        width: 116px;
+      }
+
+      .builder-card .cake-step:nth-child(2) .cake-step-text::after {
+        right: calc(100% + 122px);
+      }
+
+      .builder-card .cake-step:nth-child(3) .cake-step-text::before {
+        width: 128px;
+      }
+
+      .builder-card .cake-step:nth-child(3) .cake-step-text::after {
+        right: calc(100% + 134px);
+      }
+
       .builder-options {
         display: grid;
-        gap: 10px;
+        gap: 12px;
+        overflow: visible;
       }
 
       .builder-options label {
+        display: grid;
+        gap: 7px;
+        padding: 10px 12px 12px;
+        border: 1px solid rgba(255,255,255,0.18);
+        border-radius: 18px;
+        background: rgba(255,255,255,0.08);
+        color: white;
+        font-weight: 700;
+      }
+
+      .builder-options span {
+        font-size: 0.78rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: rgba(255,255,255,0.74);
+      }
+
+      .builder-options select {
+        width: 100%;
+        min-height: 42px;
+        border: 1px solid rgba(255,255,255,0.28);
+        border-radius: 999px;
+        background: rgba(255,253,247,0.94);
+        color: var(--sage);
+        padding: 0 12px;
+        font: inherit;
+        font-weight: 800;
+      }
+
+      .builder-pick {
+        position: relative;
+        padding: 0;
+        border: 1px solid rgba(255,255,255,0.18);
+        border-radius: 18px;
+        background: rgba(255,255,255,0.08);
+        color: white;
+        overflow: visible;
+        z-index: 1;
+      }
+
+      .builder-pick[open] {
+        z-index: 20;
+      }
+
+      .builder-pick summary {
         display: flex;
         align-items: center;
         justify-content: space-between;
         gap: 12px;
+        min-height: 50px;
+        padding: 0 12px;
+        cursor: pointer;
+        list-style: none;
+      }
+
+      .builder-pick summary::-webkit-details-marker {
+        display: none;
+      }
+
+      .builder-pick summary::after {
+        content: "+";
+        display: grid;
+        place-items: center;
+        width: 24px;
+        height: 24px;
+        border-radius: 999px;
+        background: rgba(255,253,247,0.92);
+        color: var(--sage);
+        font-weight: 900;
+      }
+
+      .builder-pick[open] summary::after {
+        content: "−";
+      }
+
+      .builder-pick summary strong {
+        margin-left: auto;
+        color: rgba(255,255,255,0.82);
+        font-size: 0.78rem;
+      }
+
+      .builder-checks {
+        position: absolute;
+        top: calc(100% + 8px);
+        left: 0;
+        right: 0;
+        display: grid;
+        gap: 7px;
+        max-height: 236px;
+        overflow: auto;
         padding: 10px 12px;
         border: 1px solid rgba(255,255,255,0.18);
-        border-radius: 20px;
-        background: rgba(255,255,255,0.08);
-        color: white;
+        border-radius: 18px;
+        background: rgba(74, 91, 65, 0.96);
+        box-shadow: 0 18px 34px rgba(20, 18, 14, 0.24);
+        backdrop-filter: blur(10px);
+      }
+
+      .builder-checks label {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 8px;
+        padding: 8px 10px;
+        border-color: rgba(255,255,255,0.16);
+        border-radius: 999px;
+        background: rgba(255,253,247,0.92);
+        color: var(--sage);
+        font-size: 0.88rem;
+        font-weight: 800;
+      }
+
+      .builder-checks input {
+        width: 16px;
+        height: 16px;
+        accent-color: var(--clay);
+      }
+
+      .builder-options textarea {
+        width: 100%;
+        min-height: 74px;
+        resize: vertical;
+        border: 1px solid rgba(255,255,255,0.28);
+        border-radius: 18px;
+        background: rgba(255,253,247,0.94);
+        color: var(--sage);
+        padding: 11px 12px;
+        font: inherit;
         font-weight: 700;
       }
 
@@ -1176,28 +1771,32 @@
       }
 
       .image-viewer .detail-card {
-        --blob-a: 58% 42% 34% 66% / 52% 34% 66% 48%;
-        --blob-b: 41% 59% 58% 42% / 38% 61% 39% 62%;
         display: block;
-        width: min(760px, calc(100% - 24px));
-        max-height: min(760px, calc(100vh - 36px));
+        width: min(760px, calc(100% - 28px));
+        max-height: none;
         overflow: hidden;
-        border-radius: var(--blob-a);
-        background: transparent;
-        animation: blobBreath 9s ease-in-out infinite;
+        border-radius: 30px;
+        background: var(--zoom-frame, var(--sage));
+        padding: clamp(12px, 2vw, 18px);
+        box-shadow: 0 28px 80px rgba(20, 18, 14, 0.34);
       }
 
       .image-viewer .detail-media {
-        min-height: min(720px, calc(100vh - 36px));
+        min-height: 0;
       }
 
       .solid-zoom {
         width: 100%;
-        min-height: min(720px, calc(100vh - 36px));
+        aspect-ratio: 1 / 1;
+        min-height: 0;
+        border-radius: 0;
+        background-color: var(--zoom-frame, var(--sage));
         background:
-          radial-gradient(circle at 70% 23%, rgba(255,255,255,0.28), transparent 0 16%, transparent 22%),
-          linear-gradient(145deg, rgba(255,255,255,0.16), rgba(31,24,15,0.2)),
-          var(--solid-color);
+          var(--zoom-image, var(--solid-color));
+        background-size: contain;
+        background-position: center;
+        background-repeat: no-repeat;
+        box-shadow: inset 0 0 0 1px rgba(255,255,255,0.24);
       }
 
       .image-viewer .detail-content {
@@ -1345,6 +1944,199 @@
           width: 100%;
         }
 
+        .builder-card {
+          grid-template-columns: 1fr;
+          border-radius: 34px;
+        }
+
+        .layer-cake {
+          min-height: 0;
+        }
+
+        .layer {
+          left: 38%;
+          width: min(58%, 250px);
+        }
+
+        .cake-photo {
+          left: auto;
+          width: min(54%, 230px);
+        }
+
+        .cake-photo.topping {
+          width: min(52%, 225px);
+        }
+
+        .cake-photo.cream {
+          width: min(58%, 250px);
+        }
+
+        .cake-photo.base {
+          width: min(54%, 240px);
+        }
+
+        .layer.fill {
+          width: min(62%, 268px);
+        }
+
+        .layer.base {
+          width: min(55%, 240px);
+        }
+
+        .layer-label {
+          right: 2%;
+          width: 38%;
+          font-size: 0.72rem;
+        }
+
+        .layer-label::before {
+          width: 34px;
+        }
+
+        .layer-label::after {
+          right: calc(100% + 42px);
+        }
+
+        .cake-step-text {
+          left: auto;
+          right: 1%;
+          width: 42%;
+          font-size: 0.7rem;
+          text-align: left;
+          transform: none;
+        }
+
+        .cake-step-text::before {
+          content: "";
+          width: 46px;
+        }
+
+        .cake-step-text::after {
+          content: "";
+          right: calc(100% + 54px);
+        }
+
+        .builder-card .cake-step:nth-child(2) .cake-step-text::before,
+        .builder-card .cake-step:nth-child(3) .cake-step-text::before {
+          width: 54px;
+        }
+
+        .builder-card .cake-step:nth-child(2) .cake-step-text::after,
+        .builder-card .cake-step:nth-child(3) .cake-step-text::after {
+          right: calc(100% + 62px);
+        }
+
+        .builder-section {
+          padding-top: 52px;
+        }
+
+        .builder-box {
+          width: min(100% - 32px, 430px);
+          gap: 20px;
+          align-items: start;
+        }
+
+        .builder-card {
+          gap: 10px;
+          padding-top: 0;
+        }
+
+        .builder-card .layer-cake {
+          min-height: 430px;
+          margin-top: -14px;
+        }
+
+        .builder-card .cake-photo {
+          left: 28%;
+        }
+
+        .builder-card .cake-photo.topping {
+          top: 18px;
+          width: min(54%, 205px);
+        }
+
+        .builder-card .cake-photo.cream {
+          top: 158px;
+          width: min(58%, 230px);
+        }
+
+        .builder-card .cake-photo.base {
+          top: 294px;
+          width: min(56%, 220px);
+        }
+
+        .builder-card .cake-step:nth-child(1) .cake-step-text { top: 64px; }
+        .builder-card .cake-step:nth-child(2) .cake-step-text { top: 196px; }
+        .builder-card .cake-step:nth-child(3) .cake-step-text { top: 330px; }
+
+        .builder-card .cake-step-text {
+          right: 2%;
+          width: 41%;
+          font-size: 0.68rem;
+        }
+
+        .builder-card .cake-step-text strong {
+          font-size: clamp(1.2rem, 6vw, 1.45rem);
+        }
+
+        .builder-form {
+          max-width: 314px;
+          margin-inline: auto;
+        }
+
+        .builder-form > p {
+          max-width: 100%;
+          margin-inline: auto;
+          text-align: center;
+        }
+
+        .builder-total {
+          max-width: 314px;
+          margin-inline: auto;
+        }
+
+        .summary-section {
+          padding: 52px 0 72px;
+        }
+
+        .summary-section .section-head {
+          width: min(100% - 32px, 430px);
+          margin-inline: auto;
+        }
+
+        .summary-panel {
+          grid-template-columns: 1fr;
+          width: min(100% - 32px, 430px);
+          margin-inline: auto;
+          gap: 18px;
+        }
+
+        .summary-list {
+          width: 100%;
+        }
+
+        .summary-item {
+          width: 100%;
+          padding: 22px 20px;
+          box-sizing: border-box;
+          border-radius: 24px;
+        }
+
+        .summary-side {
+          position: static;
+          width: 100%;
+          box-sizing: border-box;
+          padding: 30px 26px;
+          border-radius: 28px;
+          text-align: left;
+          order: 2;
+          animation: none;
+        }
+
+        .summary-side .button {
+          width: min(100%, 240px);
+        }
+
         .detail {
           padding: 0;
           place-items: end;
@@ -1437,26 +2229,45 @@
         <div class="shell builder-box">
           <div>
             <p class="eyebrow">Arma tu torta</p>
-            <h2>Elige una base y conversemos los cambios.</h2>
+            <h2><span class="builder-title-line">Elige una base</span><span class="builder-title-line">y conversemos</span><span class="builder-title-line">los cambios.</span></h2>
             <p id="contactClaim">Elige una torta del catálogo, ajusta formato o decoración, y envía un resumen. El precio es estimado y se confirma según fecha, disponibilidad y complejidad.</p>
           </div>
           <div class="builder-card">
             <div class="layer-cake" aria-label="Capas de una torta personalizable">
-              <div class="layer top"></div>
-              <div class="layer fill"></div>
-              <div class="layer base"></div>
-              <span class="layer-label">Cubierta</span>
-              <span class="layer-label">Relleno</span>
-              <span class="layer-label">Bizcocho</span>
-            </div>
-            <div>
-              <p>Marca una idea base y la afinamos por WhatsApp.</p>
-              <div class="builder-options">
-                <label><span>Decoración botánica</span><input type="checkbox" checked></label>
-                <label><span>Mensaje personalizado</span><input type="checkbox"></label>
-                <label><span>Formato alto</span><input type="checkbox"></label>
+              <div class="cake-step">
+                <span class="cake-step-text"><strong>Cubierta</strong>Cremosa, suave y 100% vegetal.</span>
+                <img class="cake-photo topping" src="assets/builder/builder-cake-topping-trim.png" alt="">
               </div>
-              <div class="builder-total"><span>Desde</span><strong>$7.000</strong></div>
+              <div class="cake-step">
+                <span class="cake-step-text"><strong>Relleno</strong>Natural, abundante y combinable.</span>
+                <img class="cake-photo cream" src="assets/builder/builder-cake-cream-trim.png" alt="">
+              </div>
+              <div class="cake-step">
+                <span class="cake-step-text"><strong>Bizcocho</strong>Esponjoso, fresco y vegano.</span>
+                <img class="cake-photo base" src="assets/builder/builder-cake-base-trim.png" alt="">
+              </div>
+            </div>
+            <div class="builder-form">
+              <p>Define cubierta, elige rellenos y combina bizcochos. Dejamos la idea lista para cotizar.</p>
+              <div class="builder-options">
+                <label>
+                  <span>Cubierta</span>
+                  <select id="builderCubierta" aria-label="Cubierta"></select>
+                </label>
+                <details class="builder-pick">
+                  <summary><span>Relleno</span><strong data-builder-count="relleno">Elegir</strong></summary>
+                  <div id="builderRelleno" class="builder-checks" aria-label="Rellenos"></div>
+                </details>
+                <details class="builder-pick">
+                  <summary><span>Bizcocho</span><strong data-builder-count="bizcocho">Elegir</strong></summary>
+                  <div id="builderBizcocho" class="builder-checks" aria-label="Bizcochos"></div>
+                </details>
+                <label>
+                  <span>Quiero agregar otro</span>
+                  <textarea id="builderOtro" aria-label="Quiero agregar otro" placeholder="Ej: durazno, frambuesas, ar?ndanos, pi?a, flores, una idea especial..."></textarea>
+                </label>
+              </div>
+              <div class="builder-total"><span>Desde</span><strong>Por definir</strong></div>
               <a id="contactWhatsapp" class="button primary" href="#resumen">Reservar esta idea</a>
               <a id="contactInstagram" class="button" href="#" target="_blank" rel="noreferrer">Instagram</a>
             </div>
@@ -1533,11 +2344,26 @@
         contacto: "https://docs.google.com/spreadsheets/d/e/2PACX-1vRRxoQN-Ur4UPW9nEDxz-fPENVJbvfpZj_xBBKMvlfr1CkzHfxv_L7hngLNOkHUhkL3-xxjUCCdQ7Aq/pub?gid=1947227863&single=true&output=csv"
       };
 
+      const BUILDER_OPTIONS = {
+        bizcocho: ["Limón amapola", "Naranja zanahoria", "Plátano arándano", "Manzana canela", "Vainilla", "Cacao"],
+        relleno: ["Manjar de soya", "Manjar de dátiles con mantequilla de maní", "Queso crema de castañas de cajú", "Crema pastelera", "Ganache de chocolate"],
+        cubierta: ["Crema vegetal", "Ganache especial de cacao y papa camote"]
+      };
+
+      const DEFAULT_WHATSAPP = "56932514474";
+
       const SOLID_COLORS = [
         "#c05a2b", "#6f7d55", "#d9a441", "#8f4f3e", "#e7b8a4",
         "#405b4f", "#b4773b", "#cf6f81", "#8a8f63", "#e1c77a",
         "#68473b", "#9a6f98", "#55736a", "#d8894a", "#b9c795"
       ];
+
+      const CATEGORY_IMAGES = {
+        torta: "assets/builder/tortafront1.jpg",
+        tarta: "assets/builder/tartafront.jpg",
+        golosina: "assets/builder/torrafront2.jpg",
+        arma: "assets/builder/armatortfront.jpg"
+      };
 
       const state = { productos: [], formatos: [], opciones: [], decoraciones: [], contacto: [], errors: {}, activeProduct: null, reservas: [] };
       const $ = (selector) => document.querySelector(selector);
@@ -1563,6 +2389,10 @@
         contactWhatsapp: $("#contactWhatsapp"),
         contactInstagram: $("#contactInstagram"),
         contactClaim: $("#contactClaim"),
+        builderBizcocho: $("#builderBizcocho"),
+        builderRelleno: $("#builderRelleno"),
+        builderCubierta: $("#builderCubierta"),
+        builderOtro: $("#builderOtro"),
         summaryList: $("#summaryList"),
         summaryTotal: $("#summaryTotal"),
         finalWhatsapp: $("#finalWhatsapp")
@@ -1585,6 +2415,7 @@
         await loadData();
         renderContact();
         renderControls();
+        renderBuilderOptions();
         renderCategories();
         renderCatalog();
         renderSummary();
@@ -1601,7 +2432,14 @@
         els.categoryFilter.addEventListener("change", renderCatalog);
         els.close.addEventListener("click", closeDetail);
         els.detail.addEventListener("click", (event) => { if (event.target === els.detail) closeDetail(); });
-        document.addEventListener("keydown", (event) => { if (event.key === "Escape") closeDetail(); });
+        document.addEventListener("pointerdown", (event) => {
+          if (!event.target.closest(".builder-pick")) closeBuilderPicks();
+        });
+        document.addEventListener("keydown", (event) => {
+          if (event.key !== "Escape") return;
+          closeDetail();
+          closeBuilderPicks();
+        });
         [els.format, els.option, els.decoration, els.note].forEach((input) => {
           input.addEventListener("input", updateOrder);
           input.addEventListener("change", updateOrder);
@@ -1615,6 +2453,12 @@
           if (!remove) return;
           state.reservas.splice(Number(remove.dataset.removeReservation), 1);
           renderSummary();
+        });
+      }
+
+      function closeBuilderPicks() {
+        document.querySelectorAll(".builder-pick[open]").forEach((pick) => {
+          pick.open = false;
         });
       }
 
@@ -1656,11 +2500,17 @@
         els.categoryFilter.innerHTML = [`<option value="">Todo el catálogo</option>`]
           .concat(categories.map((category) => `<option value="${escapeHtml(category)}">${escapeHtml(category)}</option>`))
           .join("");
-        els.categoryLanding.innerHTML = visualCategories.map((category, index) => `
-          <button class="category-tile" type="button" data-category="${escapeHtml(category)}" data-builder-tile="${category === "Arma tu torta" ? "true" : "false"}" style="background:${solidColor(index)}">
+        els.categoryLanding.innerHTML = visualCategories.map((category, index) => {
+          const color = solidColor(index);
+          const image = categoryImage(category);
+          const hasPhoto = Boolean(image);
+          const photoStyle = hasPhoto ? `--tile-image:url('${image}');` : "";
+          return `
+          <button class="category-tile ${hasPhoto ? "category-tile--photo" : ""}" type="button" data-category="${escapeHtml(category)}" data-builder-tile="${category === "Arma tu torta" ? "true" : "false"}" style="--tile-color:${color};background:${color};${photoStyle}">
             <span>${escapeHtml(category)}</span>
           </button>
-        `).join("");
+        `;
+        }).join("");
         els.categoryLanding.querySelectorAll("[data-category]").forEach((button) => {
           button.addEventListener("click", () => {
             const category = button.dataset.category;
@@ -1698,7 +2548,7 @@
         document.querySelectorAll("[data-solid-open]").forEach((button) => {
           button.addEventListener("click", (event) => {
             event.stopPropagation();
-            openImage(button.dataset.solidOpen, button.dataset.imageAlt || "Producto vegano");
+            openImage(button.dataset.solidOpen, button.dataset.imageAlt || "Producto vegano", button.dataset.imageOpen || "");
           });
         });
         document.querySelectorAll("[data-reserve]").forEach((button) => {
@@ -1749,20 +2599,31 @@
         return "Productos veganos del catálogo, preparados a pedido y sujetos a disponibilidad.";
       }
 
+      function categoryImage(value) {
+        const key = clean(value);
+        if (key.includes("arma")) return CATEGORY_IMAGES.arma;
+        if (key.includes("golosina")) return CATEGORY_IMAGES.golosina;
+        if (key.includes("tarta")) return CATEGORY_IMAGES.tarta;
+        if (key.includes("torta")) return CATEGORY_IMAGES.torta;
+        return "";
+      }
+
       function cardTemplate(product, index) {
         const id = productId(product);
         const color = solidColor(index);
+        const image = categoryImage(product.categoria || product.nombre || "");
+        const imageStyle = image ? `--media-image:url('${image}');` : "";
         const formats = formatsForProduct(product);
         const hasDecoration = productUsesDecoration(product);
         return `
           <article class="product-card" data-product="${escapeHtml(id)}" data-base-price="${number(product.precio)}" data-product-name="${escapeHtml(product.nombre || "Producto vegano")}">
-            <button class="product-media" type="button" style="--solid-color:${escapeHtml(color)}" data-solid-open="${escapeHtml(color)}" data-image-alt="${escapeHtml(product.nombre || "Producto vegano")}">
+            <button class="product-media" type="button" style="--solid-color:${escapeHtml(color)};${imageStyle}" data-solid-open="${escapeHtml(color)}" data-image-open="${escapeHtml(image || "")}" data-image-alt="${escapeHtml(product.nombre || "Producto vegano")}">
             </button>
             <div class="product-body">
               <h3>${escapeHtml(product.nombre || "Producto vegano")}</h3>
               <p>${escapeHtml(product.descripcion || product.descripcion_poetica || product.relleno || "Producto vegano a pedido.")}</p>
               <div class="quick-config" data-stop-card>
-                <select data-quick-format aria-label="Formato">${formatOptions(formats, product)}</select>
+                <select data-quick-format aria-label="Tamaño">${formatOptions(formats, product)}</select>
                 ${hasDecoration ? `<select data-quick-decoration aria-label="Decoración">${quickOptions(state.decoraciones, "Decoración", "extra", true)}</select><p class="option-help" data-decoration-help></p>` : ""}
                 <div class="reserve-row">
                   <button class="reserve-button" type="button" data-reserve>Reservar pedido</button>
@@ -1774,7 +2635,9 @@
 
       function quickOptions(rows, fallback, priceMode = "extra", includeDescription = false) {
         if (!rows.length) return `<option value="" data-price="0">${escapeHtml(fallback)}</option>`;
-        return rows.slice(0, 8).map((row, index) => {
+        const placeholderText = clean(fallback).includes("decoracion") ? "Elegir decoración" : "Elegir una opción";
+        const placeholder = `<option value="" data-price="0" data-description="">${escapeHtml(placeholderText)}</option>`;
+        return placeholder + rows.slice(0, 8).map((row, index) => {
           const description = includeDescription ? row.descripcion || "" : "";
           return `<option value="${index}" data-price="${number(priceMode === "price" ? row.precio : row.precio_extra)}" data-description="${escapeHtml(description)}" title="${escapeHtml(description)}">${escapeHtml(row.nombre || row.porciones || row.categoria || "Opción")}</option>`;
         }).join("");
@@ -1785,10 +2648,13 @@
       function formatOptions(rows, product) {
         const base = number(product.precio || product.precio_desde);
         if (!rows.length) {
-          const fallback = base ? `Precio único - ${formatMoney(base)}` : "Precio único";
+          const category = clean(product.categoria || product.nombre || "");
+          const isRawmesan = category.includes("rawmesan") || category.includes("romesan");
+          const label = isRawmesan ? "Elegir precio" : "Precio único";
+          const fallback = base ? `${label} - ${formatMoney(base)}` : label;
           return `<option value="" data-price="${base}">${escapeHtml(fallback)}</option>`;
         }
-        return rows.map((row, index) => `<option value="${index}" data-price="${number(row.precio)}">${escapeHtml(formatLabel(row))}</option>`).join("");
+        return `<option value="" data-price="0">Elegir tamaño</option>` + rows.map((row, index) => `<option value="${index}" data-price="${number(row.precio)}">${escapeHtml(formatLabel(row))}</option>`).join("");
       }
 
       function productUsesDecoration(product) {
@@ -1805,22 +2671,27 @@
       }
 
       function formatLabel(row) {
+        const persons = row.personas || row.porciones || "";
         const parts = [
           row.nombre,
-          row.personas ? `${row.personas} personas` : "",
-          row.porciones,
-          row.diametro_cm ? `${row.diametro_cm} cm` : "",
+          persons ? `${personRange(persons)} personas` : "",
           number(row.precio) ? formatMoney(number(row.precio)) : ""
         ].filter(Boolean);
         return parts.join(" · ");
       }
 
+      function personRange(value) {
+        return String(value).replace(/\s*-\s*/g, " a ");
+      }
+
       function selectedQuick(select) {
         if (!select) return { label: "No aplica", price: 0 };
         const option = select.options[select.selectedIndex];
+        const price = number(option?.dataset.price);
+        const label = option?.textContent || "Sin ajuste";
         return {
-          label: option?.textContent || "Sin ajuste",
-          price: number(option?.dataset.price)
+          label: option?.value === "" && !price && clean(label).startsWith("elegir") ? "A definir" : label,
+          price
         };
       }
 
@@ -1830,7 +2701,9 @@
         const help = card.querySelector("[data-decoration-help]");
         if (!select || !help) return;
         const option = select.options[select.selectedIndex];
-        help.textContent = option?.dataset.description || "";
+        const description = option?.dataset.description || "";
+        help.textContent = description;
+        help.style.display = description ? "" : "none";
       }
 
       function updateCardPrice(card) {
@@ -1863,22 +2736,84 @@
         location.hash = "#resumen";
       }
 
-      function addBuilderReservation() {
-        const checked = [...document.querySelectorAll(".builder-options input:checked")]
-          .map((input) => input.closest("label")?.querySelector("span")?.textContent)
-          .filter(Boolean);
-        state.reservas.push({
-          name: "Arma tu torta",
-          category: "Pedido personalizado",
-          bizcocho: "A definir",
-          relleno: "A definir",
-          cubierta: "A definir",
-          format: checked.includes("Formato alto") ? "Formato alto" : "Formato a definir",
-          decoration: checked.filter((item) => item !== "Formato alto").join(", ") || "A definir",
-          total: 7000
+      function renderBuilderOptions() {
+        fillBuilderChecks(els.builderBizcocho, BUILDER_OPTIONS.bizcocho, "bizcocho");
+        fillBuilderChecks(els.builderRelleno, BUILDER_OPTIONS.relleno, "relleno");
+        fillBuilderSelect(els.builderCubierta, BUILDER_OPTIONS.cubierta);
+        document.querySelectorAll(".builder-checks input").forEach((input) => input.addEventListener("change", updateBuilderCounts));
+        document.querySelectorAll(".builder-pick").forEach((pick) => {
+          pick.addEventListener("toggle", () => {
+            if (!pick.open) return;
+            document.querySelectorAll(".builder-pick[open]").forEach((other) => {
+              if (other !== pick) other.open = false;
+            });
+          });
         });
+        updateBuilderCounts();
+      }
+
+      function fillBuilderChecks(container, options, group) {
+        if (!container) return;
+        container.innerHTML = options.map((option, index) => `
+          <label>
+            <input type="checkbox" name="builder-${escapeHtml(group)}" value="${escapeHtml(option)}">
+            ${escapeHtml(option)}
+          </label>
+        `).join("");
+      }
+
+      function fillBuilderSelect(select, options, emptyLabel = "") {
+        if (!select) return;
+        const empty = emptyLabel ? `<option value="">${escapeHtml(emptyLabel)}</option>` : "";
+        select.innerHTML = empty + options.map((option) => `<option value="${escapeHtml(option)}">${escapeHtml(option)}</option>`).join("");
+      }
+
+      function selectedBuilderChecks(group) {
+        return [...document.querySelectorAll(`input[name="builder-${group}"]:checked`)].map((input) => input.value);
+      }
+
+      function updateBuilderCounts() {
+        ["bizcocho", "relleno"].forEach((group) => {
+          const count = selectedBuilderChecks(group).length;
+          const label = document.querySelector(`[data-builder-count="${group}"]`);
+          if (label) label.textContent = count ? (count === 1 ? "1 elegido" : `${count} elegidos`) : "Elegir";
+        });
+      }
+
+      function addBuilderReservation() {
+        closeBuilderPicks();
+        const bizcochos = selectedBuilderChecks("bizcocho");
+        const rellenos = selectedBuilderChecks("relleno");
+        const cubierta = els.builderCubierta?.value || "A definir";
+        const otro = (els.builderOtro?.value || "").trim();
+        const reservation = {
+          name: "Torta vegana personalizada",
+          category: "Pedido personalizado",
+          bizcocho: bizcochos.length ? bizcochos.join(" + ") : "A definir",
+          relleno: rellenos.length ? rellenos.join(" + ") : "A definir",
+          cubierta,
+          format: "Cotizacion a medida",
+          decoration: "No aplica",
+          extra: otro,
+          total: 0
+        };
+        state.reservas.push(reservation);
         renderSummary();
         location.hash = "#resumen";
+      }
+
+      function builderMessage(item) {
+        return [
+          "Hola Cocina Libre, quiero cotizar una torta vegana personalizada:",
+          "",
+          `Cubierta: ${item.cubierta}`,
+          `Relleno: ${item.relleno}`,
+          `Bizcocho: ${item.bizcocho}`,
+          item.extra ? `Quiero agregar: ${item.extra}` : "",
+          "",
+          "Precio: a confirmar",
+          "Quedo atento/a para confirmar disponibilidad, fecha y valor final."
+        ].filter(Boolean).join("\n");
       }
 
       function renderSummary() {
@@ -1891,19 +2826,21 @@
         const total = state.reservas.reduce((sum, item) => sum + number(item.total), 0);
         els.summaryList.innerHTML = state.reservas.map((item, index) => {
           const meta = [item.category, item.format, item.decoration !== "No aplica" ? item.decoration : ""].filter(Boolean).join(" · ");
+          const extraLine = item.extra ? `<br>Otro pedido: ${escapeHtml(item.extra)}` : "";
+          const priceLine = item.total ? `<strong>${formatMoney(item.total)}</strong>` : "";
           return `
             <article class="summary-item">
               <h3>${escapeHtml(item.name)}</h3>
               <p><strong>${escapeHtml(meta)}</strong></p>
-              <p>Bizcocho: ${escapeHtml(item.bizcocho)}<br>Relleno: ${escapeHtml(item.relleno)}<br>Cubierta: ${escapeHtml(item.cubierta)}</p>
+              <p>Bizcocho: ${escapeHtml(item.bizcocho)}<br>Relleno: ${escapeHtml(item.relleno)}<br>Cubierta: ${escapeHtml(item.cubierta)}${extraLine}</p>
               <div class="reserve-row">
-                <strong>${item.total ? formatMoney(item.total) : "A confirmar"}</strong>
+                ${priceLine}
                 <button class="reserve-button" type="button" data-remove-reservation="${index}">Quitar</button>
               </div>
             </article>
           `;
         }).join("");
-        els.summaryTotal.textContent = total ? formatMoney(total) : "A confirmar";
+        els.summaryTotal.textContent = total ? formatMoney(total) : "";
         els.finalWhatsapp.href = whatsappLink(summaryMessage(total));
       }
 
@@ -1916,13 +2853,16 @@
           `Cubierta: ${item.cubierta}`,
           `Formato: ${item.format}`,
           item.decoration !== "No aplica" ? `Decoración: ${item.decoration}` : "",
+          item.extra ? `Otro pedido: ${item.extra}` : "",
           `Estimado: ${item.total ? formatMoney(item.total) : "a confirmar"}`
         ].filter(Boolean).join("\n"));
         return `Hola Cocina Libre, quiero reservar/cotizar este pedido vegano:\n\n${lines.join("\n\n")}\n\nTotal estimado: ${total ? formatMoney(total) : "a confirmar"}\nQuedo atento/a para confirmar fecha, disponibilidad y precio final.`;
       }
 
-      function openImage(src, alt) {
-        els.media.innerHTML = `<div class="solid-zoom" style="--solid-color:${escapeHtml(src)}" aria-label="${escapeHtml(alt)}"></div>`;
+      function openImage(src, alt, image = "") {
+        const imageStyle = image ? `--zoom-image:url('${escapeHtml(image)}');` : "";
+        els.detail.querySelector(".detail-card")?.style.setProperty("--zoom-frame", src);
+        els.media.innerHTML = `<div class="solid-zoom" style="--solid-color:${escapeHtml(src)};--zoom-frame:${escapeHtml(src)};${imageStyle}" aria-label="${escapeHtml(alt)}"></div>`;
         els.detail.classList.add("is-open", "image-viewer");
       }
 
@@ -2015,8 +2955,7 @@
       }
 
       function whatsappLink(text) {
-        const phone = contact("whatsapp").replace(/\\D/g, "");
-        return phone ? `https://wa.me/${phone}?text=${encodeURIComponent(text)}` : `https://wa.me/?text=${encodeURIComponent(text)}`;
+        return `https://api.whatsapp.com/send?phone=${DEFAULT_WHATSAPP}&text=${encodeURIComponent(text)}`;
       }
 
       function contact(key) {
@@ -2089,3 +3028,4 @@
     </script>
   </body>
 </html>
+
