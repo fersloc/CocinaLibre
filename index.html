@@ -70,14 +70,21 @@
       }
 
       .brand-mark {
-        width: 42px;
-        height: 42px;
+        width: 48px;
+        height: 48px;
         display: grid;
         place-items: center;
-        border-radius: 50%;
-        background: var(--sage);
-        color: white;
+        border-radius: 0;
+        background: transparent;
+        color: inherit;
         font-weight: 800;
+        overflow: hidden;
+      }
+
+      .brand-mark img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
       }
 
       .brand strong {
@@ -155,6 +162,27 @@
       .hero > * {
         position: relative;
         z-index: 1;
+      }
+
+      .brand-bird {
+        position: absolute;
+        z-index: 2;
+        pointer-events: none;
+        user-select: none;
+        filter: drop-shadow(0 14px 22px rgba(31, 24, 15, 0.18));
+      }
+
+      .brand-bird img {
+        display: block;
+        width: 100%;
+        height: auto;
+      }
+
+      .brand-bird--hero {
+        width: clamp(116px, 13vw, 186px);
+        left: clamp(18px, 5vw, 86px);
+        bottom: clamp(52px, 8vw, 122px);
+        transform: rotate(-12deg) scaleX(-1);
       }
 
       .hero-grid {
@@ -311,6 +339,9 @@
         --blob-a: 68% 32% 62% 38% / 31% 54% 46% 69%;
         --blob-b: 42% 58% 39% 61% / 62% 35% 65% 38%;
         position: absolute;
+        display: flex;
+        align-items: center;
+        justify-content: center;
         left: 0;
         bottom: 30px;
         width: min(300px, 68%);
@@ -319,6 +350,7 @@
         border-radius: var(--blob-a);
         background: rgba(255,253,247,0.95);
         box-shadow: var(--shadow);
+        text-align: center;
         animation: blobBreath 13s ease-in-out infinite;
       }
 
@@ -345,6 +377,8 @@
       }
 
       .category-band {
+        position: relative;
+        z-index: 1;
         padding: clamp(8px, 2vw, 18px) 0 0;
       }
 
@@ -743,7 +777,7 @@
         padding: 0;
         border: 9px solid var(--solid-color, var(--cream-2));
         aspect-ratio: 1 / 1.06;
-        overflow: hidden;
+        overflow: visible;
         border-radius: var(--media-a);
         background: var(--solid-color, var(--cream-2));
         color: inherit;
@@ -770,6 +804,8 @@
         content: "";
         position: absolute;
         inset: 0;
+        z-index: 0;
+        border-radius: inherit;
         background:
           radial-gradient(circle at 72% 24%, rgba(255,255,255,0.28), transparent 0 16%, transparent 21%),
           linear-gradient(145deg, rgba(255,255,255,0.14), rgba(31,24,15,0.18)),
@@ -783,6 +819,46 @@
         transform: scale(1.09) rotate(-1deg);
       }
 
+      .product-bird {
+        position: absolute;
+        right: 1%;
+        bottom: 1%;
+        z-index: 5;
+        width: clamp(67px, 32.5%, 130px);
+        max-height: 50%;
+        object-fit: contain;
+        pointer-events: none;
+        filter: drop-shadow(0 10px 18px rgba(31, 24, 15, 0.22));
+      }
+
+      .product-bird--left {
+        right: auto;
+        left: 1%;
+      }
+
+      .product-bird--right {
+        right: 1%;
+        left: auto;
+      }
+
+      .product-bird--large {
+        width: clamp(76px, 35.7%, 143px);
+        max-height: 54%;
+      }
+
+      .product-bird--tarta {
+        width: clamp(74px, 35.8%, 143px);
+        max-height: 55%;
+      }
+
+      .product-bird--golosina {
+        right: -18%;
+        bottom: -20%;
+        left: auto;
+        width: clamp(152px, 73.2%, 293px);
+        max-height: 92%;
+      }
+
       @keyframes mediaBlob {
         0%, 100% {
           border-radius: var(--media-a);
@@ -792,10 +868,6 @@
           border-radius: var(--media-b);
           transform: translate3d(calc(var(--media-x) * -1), calc(var(--media-y) * -1), 0) rotate(calc(var(--media-rotate) * -1)) scaleX(var(--media-flip, 1));
         }
-      }
-
-      .catalog-grid .product-card:nth-child(even) {
-        --media-flip: -1;
       }
 
       .product-body {
@@ -899,6 +971,19 @@
         font-weight: 800;
       }
 
+      .reserve-button:focus-visible {
+        outline: 3px solid rgba(67, 81, 55, 0.28);
+        outline-offset: 3px;
+      }
+
+      .option-error {
+        min-height: 20px;
+        color: #8b2d1d;
+        font-size: 0.78rem;
+        font-weight: 700;
+        line-height: 1.35;
+      }
+
       .price {
         color: var(--clay);
         font-weight: 800;
@@ -916,20 +1001,21 @@
         color: white;
         border-bottom-left-radius: 55% 8%;
         border-bottom-right-radius: 55% 8%;
+        overflow-x: clip;
       }
 
       .builder-box {
         display: grid;
-        width: min(1500px, calc(100% - 120px));
-        grid-template-columns: 440px minmax(820px, 1fr);
-        gap: clamp(72px, 6vw, 104px);
+        width: min(1500px, calc(100% - clamp(48px, 7vw, 120px)));
+        grid-template-columns: minmax(300px, 440px) minmax(0, 1fr);
+        gap: clamp(36px, 4vw, 88px);
         align-items: center;
       }
 
       .builder-box h2 {
         max-width: 440px;
         font-size: clamp(2.45rem, 3.7vw, 4rem);
-        line-height: 0.94;
+        line-height: 1.05;
       }
 
       .builder-title-line {
@@ -945,13 +1031,14 @@
 
       .builder-card {
         display: grid;
-        grid-template-columns: minmax(500px, 560px) minmax(300px, 320px);
-        gap: clamp(56px, 4vw, 78px);
+        grid-template-columns: minmax(360px, 560px) minmax(260px, 320px);
+        gap: clamp(28px, 3vw, 64px);
         align-items: center;
         padding: 24px 0;
         border: 0;
         border-radius: 0;
         background: transparent;
+        min-width: 0;
       }
 
       .builder-card a {
@@ -1372,19 +1459,19 @@
       }
 
       .builder-card .cake-photo.topping {
-        top: 16px;
+        top: 22px;
         width: min(58%, 330px);
         transform: translateX(-50%) rotate(-2deg);
       }
 
       .builder-card .cake-photo.cream {
-        top: 216px;
+        top: 226px;
         width: min(64%, 360px);
         transform: translateX(-50%) rotate(1deg);
       }
 
       .builder-card .cake-photo.base {
-        top: 438px;
+        top: 430px;
         width: min(60%, 340px);
         transform: translateX(-50%) rotate(-1deg);
       }
@@ -1429,8 +1516,8 @@
         z-index: 5;
       }
 
-      .builder-card .cake-step:nth-child(1) .cake-step-text { top: 78px; }
-      .builder-card .cake-step:nth-child(2) .cake-step-text { top: 286px; }
+      .builder-card .cake-step:nth-child(1) .cake-step-text { top: 86px; }
+      .builder-card .cake-step:nth-child(2) .cake-step-text { top: 290px; }
       .builder-card .cake-step:nth-child(3) .cake-step-text { top: 494px; }
 
       .builder-card .cake-step:nth-child(2) .cake-step-text::before {
@@ -1587,6 +1674,56 @@
         font-weight: 700;
       }
 
+      .topper-note {
+        max-width: 330px;
+        margin: 12px 0 0 auto;
+        padding: 12px 14px;
+        border: 1px solid rgba(255,255,255,0.18);
+        border-radius: 14px;
+        background: rgba(255,253,247,0.1);
+        color: rgba(255,255,255,0.82);
+        font-size: 0.84rem;
+        font-weight: 700;
+        line-height: 1.4;
+      }
+
+      .topper-note strong {
+        color: #fff8ec;
+      }
+
+      .topper-note a {
+        color: #fff8ec;
+        text-decoration: underline;
+        text-decoration-thickness: 1px;
+        text-underline-offset: 3px;
+      }
+
+      .topper-samples {
+        display: grid;
+        grid-template-columns: repeat(3, 48px);
+        gap: 8px;
+        margin-top: 10px;
+      }
+
+      .topper-sample {
+        position: relative;
+        width: 48px;
+        aspect-ratio: 1;
+        padding: 0;
+        border: 1px solid rgba(255,253,247,0.3);
+        border-radius: 8px;
+        background: rgba(255,253,247,0.16);
+        overflow: hidden;
+        cursor: pointer;
+      }
+
+      .topper-sample img {
+        display: block;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
       .builder-total {
         display: flex;
         align-items: center;
@@ -1595,6 +1732,177 @@
         padding-top: 12px;
         border-top: 1px solid rgba(255,255,255,0.2);
         font-weight: 800;
+      }
+
+      .moodboard-section {
+        padding: clamp(54px, 8vw, 108px) 0 clamp(70px, 9vw, 124px);
+        background: var(--cream);
+      }
+
+      .moodboard-head {
+        display: grid;
+        grid-template-columns: minmax(0, 0.8fr) minmax(260px, 0.44fr);
+        gap: clamp(18px, 5vw, 70px);
+        align-items: end;
+        margin-bottom: clamp(22px, 4vw, 40px);
+      }
+
+      .moodboard-head h2 {
+        color: var(--sage);
+        font-size: clamp(2.2rem, 5vw, 5rem);
+        line-height: 0.98;
+      }
+
+      .moodboard-head p {
+        margin: 0;
+        color: var(--muted);
+        line-height: 1.65;
+      }
+
+      .moodboard-slider {
+        position: relative;
+      }
+
+      .moodboard-track {
+        display: grid;
+        grid-auto-flow: column;
+        grid-auto-columns: minmax(250px, 28vw);
+        gap: clamp(18px, 2.5vw, 34px);
+        overflow-x: auto;
+        overscroll-behavior-inline: contain;
+        scroll-snap-type: none;
+        cursor: grab;
+        padding: 8px 0 22px;
+        scrollbar-width: none;
+      }
+
+      .moodboard-track::-webkit-scrollbar {
+        display: none;
+      }
+
+      .moodboard-track.is-dragging {
+        cursor: grabbing;
+        scroll-snap-type: none;
+      }
+
+      .moodboard-card {
+        position: relative;
+        aspect-ratio: 1;
+        min-height: 0;
+        padding: clamp(22px, 3vw, 36px);
+        border: 1px solid rgba(216, 203, 183, 0.75);
+        border-radius: 8px;
+        background: var(--tone, var(--sage-2));
+        scroll-snap-align: start;
+        overflow: hidden;
+        isolation: isolate;
+        user-select: none;
+      }
+
+      .moodboard-photo {
+        position: absolute;
+        inset: 0;
+        z-index: -2;
+        width: 112%;
+        height: 100%;
+        max-width: none;
+        object-fit: cover;
+        transform: translate3d(calc(var(--parallax-x, 0px) * -0.85), 0, 0) scale(1.04);
+        transition: transform 120ms linear;
+        filter: none;
+      }
+
+      .moodboard-card::before,
+      .moodboard-card::after {
+        content: none;
+        position: absolute;
+        z-index: 0;
+        border-radius: 999px;
+        transform: translate3d(var(--parallax-x, 0px), 0, 0);
+        transition: transform 120ms linear;
+      }
+
+      .moodboard-card::before {
+        inset: 0;
+        width: auto;
+        aspect-ratio: auto;
+        border-radius: 0;
+        background:
+          linear-gradient(180deg, rgba(29, 28, 21, 0.06), rgba(29, 28, 21, 0.58)),
+          linear-gradient(90deg, rgba(255,253,247,0.1), rgba(255,253,247,0));
+        transform: none;
+      }
+
+      .moodboard-card::after {
+        width: 44%;
+        aspect-ratio: 1;
+        left: 10%;
+        bottom: -16%;
+        background: rgba(67, 81, 55, 0.18);
+      }
+
+      .moodboard-depth {
+        display: none;
+      }
+
+      .moodboard-content {
+        position: absolute;
+        z-index: 2;
+        left: clamp(18px, 3vw, 34px);
+        right: clamp(18px, 3vw, 34px);
+        bottom: clamp(20px, 3vw, 36px);
+        display: grid;
+        gap: 0;
+      }
+
+      .moodboard-kicker {
+        display: none;
+      }
+
+      .moodboard-content h3 {
+        color: var(--cream);
+        width: fit-content;
+        max-width: min(100%, 12ch);
+        padding: 7px 10px 8px;
+        border-radius: 8px;
+        background: rgba(255, 253, 247, 0.82);
+        color: var(--sage);
+        font-size: clamp(0.84rem, 1.5vw, 1.75rem);
+        line-height: 0.98;
+        text-shadow: none;
+      }
+
+      .moodboard-tags {
+        display: none;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+
+      .moodboard-tags span {
+        padding: 7px 10px;
+        border: 1px solid rgba(255,253,247,0.34);
+        border-radius: 999px;
+        background: rgba(29, 28, 21, 0.22);
+        color: rgba(255,253,247,0.86);
+        font-size: 0.74rem;
+        font-weight: 800;
+      }
+
+      .moodboard-progress {
+        height: 4px;
+        margin-top: 12px;
+        border-radius: 999px;
+        background: rgba(216, 203, 183, 0.78);
+        overflow: hidden;
+      }
+
+      .moodboard-progress span {
+        display: block;
+        width: var(--progress, 0%);
+        height: 100%;
+        border-radius: inherit;
+        background: var(--sage);
+        transition: width 140ms ease;
       }
 
       .detail {
@@ -1749,9 +2057,51 @@
       }
 
       .footer {
+        display: grid;
+        grid-template-columns: 1fr auto 1fr;
+        align-items: center;
+        gap: 22px;
         padding: 34px 0;
         color: var(--muted);
         font-size: 0.88rem;
+      }
+
+      .footer-badges {
+        display: contents;
+      }
+
+      .footer-copy {
+        justify-self: center;
+      }
+
+      .footer-bird-wrap,
+      .footer-stamp-wrap {
+        display: flex;
+        align-items: center;
+      }
+
+      .footer-stamp-wrap {
+        grid-column: 1;
+        grid-row: 1;
+        justify-self: start;
+      }
+
+      .footer-bird-wrap {
+        grid-column: 3;
+        grid-row: 1;
+        justify-self: end;
+      }
+
+      .footer-bird {
+        width: clamp(74px, 8vw, 116px);
+        transform: rotate(-8deg);
+        filter: drop-shadow(0 10px 16px rgba(63, 41, 24, 0.14));
+      }
+
+      .footer-stamp {
+        width: clamp(78px, 8vw, 112px);
+        transform: rotate(8deg);
+        filter: drop-shadow(0 10px 16px rgba(63, 41, 24, 0.14));
       }
 
       body.routed [data-page] {
@@ -1781,11 +2131,16 @@
         box-shadow: 0 28px 80px rgba(20, 18, 14, 0.34);
       }
 
+      .topper-viewer .detail-card {
+        width: min(600px, calc(100% - 28px));
+      }
+
       .image-viewer .detail-media {
         min-height: 0;
       }
 
       .solid-zoom {
+        position: relative;
         width: 100%;
         aspect-ratio: 1 / 1;
         min-height: 0;
@@ -1797,6 +2152,33 @@
         background-position: center;
         background-repeat: no-repeat;
         box-shadow: inset 0 0 0 1px rgba(255,255,255,0.24);
+      }
+
+      .zoom-bird {
+        position: absolute;
+        right: clamp(16px, 2.4vw, 28px);
+        bottom: clamp(16px, 2.4vw, 28px);
+        z-index: 2;
+        width: clamp(78px, 13.7%, 124px);
+        aspect-ratio: 1 / 1;
+        background-image: var(--zoom-bird-image);
+        background-size: contain;
+        background-position: center;
+        background-repeat: no-repeat;
+        pointer-events: none;
+        filter: drop-shadow(0 14px 22px rgba(20, 18, 14, 0.24));
+      }
+
+      .zoom-bird--left {
+        right: auto;
+        left: clamp(16px, 2.4vw, 28px);
+      }
+
+      .zoom-bird--golosina {
+        right: clamp(-10px, -1.4vw, -6px);
+        bottom: clamp(-10px, -1.4vw, -6px);
+        left: auto;
+        width: clamp(156px, 27.4%, 248px);
       }
 
       .image-viewer .detail-content {
@@ -1857,6 +2239,128 @@
         line-height: 1.5;
       }
 
+      @media (min-width: 901px) and (max-width: 1480px) {
+        .builder-box {
+          width: min(100% - 56px, 1240px);
+          grid-template-columns: minmax(260px, 360px) minmax(0, 1fr);
+          gap: clamp(28px, 3vw, 44px);
+        }
+
+        .builder-box h2 {
+          max-width: 360px;
+          font-size: clamp(2.35rem, 3.5vw, 3.45rem);
+        }
+
+        .builder-title-line {
+          white-space: normal;
+        }
+
+        .builder-box p {
+          max-width: 360px;
+        }
+
+        .builder-card {
+          grid-template-columns: minmax(340px, 1fr) minmax(248px, 292px);
+          gap: clamp(22px, 2.2vw, 34px);
+          min-width: 0;
+        }
+
+        .builder-card .layer-cake {
+          min-height: 560px;
+        }
+
+        .builder-card .cake-photo {
+          left: 28%;
+        }
+
+        .builder-card .cake-photo.topping {
+          width: min(56%, 280px);
+        }
+
+        .builder-card .cake-photo.cream {
+          top: 210px;
+          width: min(61%, 310px);
+        }
+
+        .builder-card .cake-photo.base {
+          top: 398px;
+          width: min(58%, 300px);
+        }
+
+        .builder-card .cake-step:nth-child(1) .cake-step-text { top: 80px; }
+        .builder-card .cake-step:nth-child(2) .cake-step-text { top: 270px; }
+        .builder-card .cake-step:nth-child(3) .cake-step-text { top: 458px; }
+
+        .builder-card .cake-step-text {
+          right: 0;
+          width: min(36%, 168px);
+        }
+
+        .builder-card .cake-step-text::before {
+          width: 58px;
+        }
+
+        .builder-card .cake-step-text::after {
+          right: calc(100% + 64px);
+        }
+
+        .builder-card .cake-step:nth-child(2) .cake-step-text::before,
+        .builder-card .cake-step:nth-child(3) .cake-step-text::before {
+          width: 72px;
+        }
+
+        .builder-card .cake-step:nth-child(2) .cake-step-text::after,
+        .builder-card .cake-step:nth-child(3) .cake-step-text::after {
+          right: calc(100% + 78px);
+        }
+
+        .builder-form {
+          max-width: 292px;
+          min-width: 0;
+        }
+
+        .builder-form > p {
+          font-size: 0.95rem;
+        }
+
+        .builder-options label,
+        .builder-pick {
+          border-radius: 14px;
+        }
+
+        .builder-pick summary,
+        .builder-options label {
+          padding-inline: 12px;
+        }
+
+        .builder-card a {
+          white-space: normal;
+        }
+      }
+
+      @media (min-width: 901px) and (max-width: 1100px) {
+        .builder-box {
+          width: min(100% - 48px, 860px);
+          grid-template-columns: 1fr;
+          gap: 34px;
+        }
+
+        .builder-box h2,
+        .builder-box p {
+          max-width: 620px;
+        }
+
+        .builder-card {
+          grid-template-columns: minmax(0, 1fr) minmax(250px, 292px);
+          width: 100%;
+          gap: 26px;
+        }
+
+        .builder-card .layer-cake {
+          min-height: 540px;
+        }
+      }
+
       @media (max-width: 900px) {
         .topbar {
           align-items: flex-start;
@@ -1897,6 +2401,33 @@
 
         .hero-photo {
           inset: 0;
+        }
+
+        .brand-bird--hero {
+          width: 104px;
+          left: 12px;
+          bottom: 32px;
+        }
+
+        .footer {
+          grid-template-columns: 1fr auto;
+        }
+
+        .footer-copy {
+          grid-column: 1 / -1;
+          grid-row: 1;
+          justify-self: center;
+        }
+
+        .footer-stamp-wrap {
+          grid-column: 1;
+          grid-row: 2;
+          justify-self: start;
+        }
+
+        .footer-bird-wrap {
+          grid-column: 2;
+          grid-row: 2;
         }
 
         .category-grid {
@@ -2056,18 +2587,18 @@
         }
 
         .builder-card .cake-photo.cream {
-          top: 158px;
+          top: 160px;
           width: min(58%, 230px);
         }
 
         .builder-card .cake-photo.base {
-          top: 294px;
+          top: 302px;
           width: min(56%, 220px);
         }
 
         .builder-card .cake-step:nth-child(1) .cake-step-text { top: 64px; }
-        .builder-card .cake-step:nth-child(2) .cake-step-text { top: 196px; }
-        .builder-card .cake-step:nth-child(3) .cake-step-text { top: 330px; }
+        .builder-card .cake-step:nth-child(2) .cake-step-text { top: 204px; }
+        .builder-card .cake-step:nth-child(3) .cake-step-text { top: 344px; }
 
         .builder-card .cake-step-text {
           right: 2%;
@@ -2097,6 +2628,18 @@
 
         .summary-section {
           padding: 52px 0 72px;
+        }
+
+        .moodboard-head {
+          grid-template-columns: 1fr;
+        }
+
+        .moodboard-track {
+          grid-auto-columns: minmax(250px, 78vw);
+        }
+
+        .moodboard-card {
+          min-height: 0;
         }
 
         .summary-section .section-head {
@@ -2165,12 +2708,21 @@
           max-width: 650px;
         }
       }
+
+      @media (prefers-reduced-motion: reduce) {
+        .moodboard-card::before,
+        .moodboard-card::after,
+        .moodboard-depth {
+          transform: none !important;
+          transition: none;
+        }
+      }
     </style>
   </head>
   <body>
     <header class="topbar">
       <a class="brand" href="#inicio">
-        <span class="brand-mark">CL</span>
+        <span class="brand-mark"><img src="assets/Imagenes/recursosGraficos/recursos graficos extra-logo colores.webp" alt="Cocina Libre" /></span>
         <span>
           <strong>Cocina Libre</strong>
           <span>Pastelería vegana a pedido</span>
@@ -2186,11 +2738,14 @@
 
     <main class="page">
       <section id="inicio" class="hero" data-page="inicio">
+        <div class="brand-bird brand-bird--hero" aria-hidden="true">
+          <img src="assets/Imagenes/recursosGraficos/recursos graficos extra-chincol2.webp" alt="" />
+        </div>
         <div class="shell hero-grid">
           <div>
             <p class="eyebrow">Repostería ética y consciente</p>
-            <h1>Pastelería vegana inspirada en el alma botánica.</h1>
-            <p class="hero-copy">Tortas hechas a pedido, con ingredientes de origen vegetal, sabores naturales y una ficha clara para elegir sin perder la magia del catálogo.</p>
+            <h1>Pastelería vegana inspirada en la naturaleza local.</h1>
+            <p class="hero-copy">Tortas hechas a pedido con ingredientes de origen vegetal. Cotiza tortas clásicas, infantiles, sin azúcar y personalizadas.</p>
           </div>
           <div class="hero-art" aria-label="Torta vegana artesanal">
             <div class="hero-photo" aria-hidden="true"></div>
@@ -2230,25 +2785,24 @@
           <div>
             <p class="eyebrow">Arma tu torta</p>
             <h2><span class="builder-title-line">Elige una base</span><span class="builder-title-line">y conversemos</span><span class="builder-title-line">los cambios.</span></h2>
-            <p id="contactClaim">Elige una torta del catálogo, ajusta formato o decoración, y envía un resumen. El precio es estimado y se confirma según fecha, disponibilidad y complejidad.</p>
+            <p id="contactClaim">Cotiza tortas personalizadas, elige la cubierta, rellenos y bizcochos.</p>
           </div>
           <div class="builder-card">
             <div class="layer-cake" aria-label="Capas de una torta personalizable">
               <div class="cake-step">
-                <span class="cake-step-text"><strong>Cubierta</strong>Cremosa, suave y 100% vegetal.</span>
+                <span class="cake-step-text"><strong>Cubierta</strong></span>
                 <img class="cake-photo topping" src="assets/builder/builder-cake-topping-trim.png" alt="">
               </div>
               <div class="cake-step">
-                <span class="cake-step-text"><strong>Relleno</strong>Natural, abundante y combinable.</span>
+                <span class="cake-step-text"><strong>Relleno</strong></span>
                 <img class="cake-photo cream" src="assets/builder/builder-cake-cream-trim.png" alt="">
               </div>
               <div class="cake-step">
-                <span class="cake-step-text"><strong>Bizcocho</strong>Esponjoso, fresco y vegano.</span>
+                <span class="cake-step-text"><strong>Bizcocho</strong></span>
                 <img class="cake-photo base" src="assets/builder/builder-cake-base-trim.png" alt="">
               </div>
             </div>
             <div class="builder-form">
-              <p>Define cubierta, elige rellenos y combina bizcochos. Dejamos la idea lista para cotizar.</p>
               <div class="builder-options">
                 <label>
                   <span>Cubierta</span>
@@ -2263,14 +2817,45 @@
                   <div id="builderBizcocho" class="builder-checks" aria-label="Bizcochos"></div>
                 </details>
                 <label>
+                  <span>Tamaño</span>
+                  <select id="builderTamano" aria-label="Tamaño"></select>
+                </label>
+                <label>
+                  <span>Decoración</span>
+                  <select id="builderDecoracion" aria-label="Decoración"></select>
+                </label>
+                <label>
                   <span>Quiero agregar otro</span>
-                  <textarea id="builderOtro" aria-label="Quiero agregar otro" placeholder="Ej: durazno, frambuesas, ar?ndanos, pi?a, flores, una idea especial..."></textarea>
+                  <textarea id="builderOtro" aria-label="Quiero agregar otro" placeholder="Ej: durazno, frambuesas, arándanos, piña, flores, una idea especial..."></textarea>
                 </label>
               </div>
-              <div class="builder-total"><span>Desde</span><strong>Por definir</strong></div>
+              <div class="topper-note">
+                <strong>Letreros y figuras para torta:</strong> si quieres, puedes encargar los toppers de madera fabricados por <a href="https://www.instagram.com/stories/highlights/17861925579258731/" target="_blank" rel="noreferrer">Quiltru</a> (<span id="topperPrice">$10.000</span>).
+                <span class="topper-samples">
+                  <button class="topper-sample" type="button" data-topper-image="assets/builder/ideas-armadas/Topper animales con nombre.webp" aria-label="Ver ejemplo de topper animales con nombre">
+                    <img src="assets/builder/ideas-armadas/Topper animales con nombre.webp" alt="" loading="lazy">
+                  </button>
+                  <button class="topper-sample" type="button" data-topper-image="assets/builder/ideas-armadas/Topper Eevee.webp" aria-label="Ver ejemplo de topper Eevee">
+                    <img src="assets/builder/ideas-armadas/Topper Eevee.webp" alt="" loading="lazy">
+                  </button>
+                  <button class="topper-sample" type="button" data-topper-image="assets/builder/ideas-armadas/Topper totoro1.webp" aria-label="Ver ejemplo de topper Totoro">
+                    <img src="assets/builder/ideas-armadas/Topper totoro1.webp" alt="" loading="lazy">
+                  </button>
+                </span>
+              </div>
               <a id="contactWhatsapp" class="button primary" href="#resumen">Reservar esta idea</a>
-              <a id="contactInstagram" class="button" href="#" target="_blank" rel="noreferrer">Instagram</a>
             </div>
+          </div>
+        </div>
+      </section>
+      <section class="moodboard-section" data-page="arma-tu-torta" aria-labelledby="moodboardTitle">
+        <div class="shell">
+          <div class="moodboard-head">
+            <h2 id="moodboardTitle">Ideas que han armado otras personas</h2>
+          </div>
+          <div class="moodboard-slider">
+            <div id="moodboardTrack" class="moodboard-track" aria-label="Muestrario horizontal de inspiración"></div>
+            <div class="moodboard-progress" aria-hidden="true"><span id="moodboardProgress"></span></div>
           </div>
         </div>
       </section>
@@ -2333,24 +2918,159 @@
       </article>
     </div>
 
-    <footer class="shell footer">Cocina Libre · Pastelería vegana a pedido</footer>
+    <footer class="shell footer">
+      <span class="footer-badges" aria-hidden="true">
+        <span class="footer-stamp-wrap"><img class="footer-stamp" src="assets/Imagenes/recursosGraficos/recursos graficos extra-productosveganos.webp" alt="" /></span>
+        <span class="footer-bird-wrap"><img class="footer-bird" src="assets/Imagenes/recursosGraficos/recursos graficos extra-chincol3.webp" alt="" /></span>
+      </span>
+      <span class="footer-copy">Cocina Libre · Pastelería vegana a pedido</span>
+    </footer>
 
     <script>
+      const PUBLISHED_SHEET_ID = "2PACX-1vRRxoQN-Ur4UPW9nEDxz-fPENVJbvfpZj_xBBKMvlfr1CkzHfxv_L7hngLNOkHUhkL3-xxjUCCdQ7Aq";
+      const EDITABLE_SHEET_ID = "1HbtCr6R7O1_ndGzPOre5QE9fRcyf_VZLb0KIiz6iIWU";
+      const sheetCsvUrl = (sheet, gid = "") => [
+        gid ? `https://docs.google.com/spreadsheets/d/e/${PUBLISHED_SHEET_ID}/pub?gid=${gid}&single=true&output=csv` : ""
+      ].filter(Boolean);
+      const editableSheetCsvUrl = (gid = "") => [
+        gid ? `https://docs.google.com/spreadsheets/d/${EDITABLE_SHEET_ID}/export?format=csv&gid=${gid}` : ""
+      ].filter(Boolean);
       const CSV_URLS = {
-        productos: "https://docs.google.com/spreadsheets/d/e/2PACX-1vRRxoQN-Ur4UPW9nEDxz-fPENVJbvfpZj_xBBKMvlfr1CkzHfxv_L7hngLNOkHUhkL3-xxjUCCdQ7Aq/pub?gid=606484983&single=true&output=csv",
-        formatos: "https://docs.google.com/spreadsheets/d/e/2PACX-1vRRxoQN-Ur4UPW9nEDxz-fPENVJbvfpZj_xBBKMvlfr1CkzHfxv_L7hngLNOkHUhkL3-xxjUCCdQ7Aq/pub?gid=2075467174&single=true&output=csv",
-        opciones: "https://docs.google.com/spreadsheets/d/e/2PACX-1vRRxoQN-Ur4UPW9nEDxz-fPENVJbvfpZj_xBBKMvlfr1CkzHfxv_L7hngLNOkHUhkL3-xxjUCCdQ7Aq/pub?gid=1011743116&single=true&output=csv",
-        decoraciones: "https://docs.google.com/spreadsheets/d/e/2PACX-1vRRxoQN-Ur4UPW9nEDxz-fPENVJbvfpZj_xBBKMvlfr1CkzHfxv_L7hngLNOkHUhkL3-xxjUCCdQ7Aq/pub?gid=1714865015&single=true&output=csv",
-        contacto: "https://docs.google.com/spreadsheets/d/e/2PACX-1vRRxoQN-Ur4UPW9nEDxz-fPENVJbvfpZj_xBBKMvlfr1CkzHfxv_L7hngLNOkHUhkL3-xxjUCCdQ7Aq/pub?gid=1947227863&single=true&output=csv"
+        productos: sheetCsvUrl("Productos", "920376714"),
+        formatos: sheetCsvUrl("Formatos", "398707066"),
+        opciones: sheetCsvUrl("Opciones", "606074664"),
+        decoraciones: sheetCsvUrl("Decoraciones", "1210476222"),
+        precios_especiales: sheetCsvUrl("Precios especiales", "1958097253"),
+        contacto: sheetCsvUrl("Contacto", "737631691"),
+        builder_variables: sheetCsvUrl("Arma tu torta", "1208433193").concat(editableSheetCsvUrl("1208433193"))
       };
 
       const BUILDER_OPTIONS = {
         bizcocho: ["Limón amapola", "Naranja zanahoria", "Plátano arándano", "Manzana canela", "Vainilla", "Cacao"],
         relleno: ["Manjar de soya", "Manjar de dátiles con mantequilla de maní", "Queso crema de castañas de cajú", "Crema pastelera", "Ganache de chocolate"],
-        cubierta: ["Crema vegetal", "Ganache especial de cacao y papa camote"]
+        cubierta: ["Crema vegetal", "Crema vegetal de café", "Ganache especial de cacao y papa camote"],
+        tamano: ["Mini, 2 personas", "Pequeña, 6 a 8 personas", "Baja, 10 a 12 personas", "Alta, 15 a 20 personas", "Grande, 28 a 30 personas"],
+        decoracion: ["Predeterminada", "Personalizada con diferentes colores y toppings, con valor adicional"]
       };
 
-      const DEFAULT_WHATSAPP = "56932514474";
+      const MOODBOARD_SLIDES = [
+        {
+          title: "Calcifer",
+          image: "assets/builder/ideas-armadas/Calcifer.webp",
+          tone: "#d8e6c2",
+          accent: "rgba(192, 90, 43, 0.22)",
+          tilt: "-5deg"
+        },
+        {
+          title: "Clásica",
+          image: "assets/builder/ideas-armadas/Clasica.webp",
+          tone: "#e7b8a4",
+          accent: "rgba(111, 125, 85, 0.26)",
+          tilt: "4deg"
+        },
+        {
+          title: "Color 1",
+          image: "assets/builder/ideas-armadas/Color 1.webp",
+          tone: "#c9b8a4",
+          accent: "rgba(64, 91, 79, 0.28)",
+          tilt: "-2deg"
+        },
+        {
+          title: "Color 2",
+          image: "assets/builder/ideas-armadas/Color 2.webp",
+          tone: "#b4773b",
+          accent: "rgba(255, 253, 247, 0.26)",
+          tilt: "-3deg"
+        },
+        {
+          title: "Color Unicornio",
+          image: "assets/builder/ideas-armadas/Color Unicornio.webp",
+          tone: "#8f4f3e",
+          accent: "rgba(217, 164, 65, 0.22)",
+          tilt: "2deg"
+        },
+        {
+          title: "Felices 30",
+          image: "assets/builder/ideas-armadas/Felices 30.webp",
+          tone: "#e0c76f",
+          accent: "rgba(255, 253, 247, 0.38)",
+          tilt: "6deg"
+        },
+        {
+          title: "Feliz cumple Ivone",
+          image: "assets/builder/ideas-armadas/Feliz cumple Ivone.webp",
+          tone: "#cf8792",
+          accent: "rgba(217, 164, 65, 0.28)",
+          tilt: "-7deg"
+        },
+        {
+          title: "Infantiles",
+          image: "assets/builder/ideas-armadas/Infantiles.webp",
+          tone: "#68473b",
+          accent: "rgba(231, 184, 164, 0.24)",
+          tilt: "-6deg"
+        },
+        {
+          title: "Sin azúcar 1",
+          image: "assets/builder/ideas-armadas/Sin azucar 1.webp",
+          tone: "#d8894a",
+          accent: "rgba(255, 253, 247, 0.3)",
+          tilt: "4deg"
+        },
+        {
+          title: "Sin azúcar 2",
+          image: "assets/builder/ideas-armadas/Sin azucar 2.webp",
+          tone: "#8a8f63",
+          accent: "rgba(255, 253, 247, 0.32)",
+          tilt: "3deg"
+        },
+        {
+          title: "Sin azúcar 2.1",
+          image: "assets/builder/ideas-armadas/Sin azucar 2.1.webp",
+          tone: "#405b4f",
+          accent: "rgba(217, 164, 65, 0.22)",
+          tilt: "-2deg"
+        },
+        {
+          title: "Topper animales con nombre",
+          image: "assets/builder/ideas-armadas/Topper animales con nombre.webp",
+          tone: "#55736a",
+          accent: "rgba(255, 253, 247, 0.25)",
+          tilt: "5deg"
+        },
+        {
+          title: "Topper Eevee",
+          image: "assets/builder/ideas-armadas/Topper Eevee.webp",
+          tone: "#b4773b",
+          accent: "rgba(255, 253, 247, 0.26)",
+          tilt: "-4deg"
+        },
+        {
+          title: "Topper super mario",
+          image: "assets/builder/ideas-armadas/Topper super mario.webp",
+          tone: "#cf6f81",
+          accent: "rgba(255, 253, 247, 0.26)",
+          tilt: "5deg"
+        },
+        {
+          title: "Topper totoro 1",
+          image: "assets/builder/ideas-armadas/Topper totoro1.webp",
+          tone: "#6f7d55",
+          accent: "rgba(255, 253, 247, 0.34)",
+          tilt: "-6deg"
+        },
+        {
+          title: "Topper totoro 2",
+          image: "assets/builder/ideas-armadas/Topper totoro 2.webp",
+          tone: "#9a6f98",
+          accent: "rgba(255, 253, 247, 0.3)",
+          tilt: "3deg"
+        }
+      ];
+
+      const DEFAULT_WHATSAPP = "56932514475";
+
+      const CUSTOM_DECORATION_DESCRIPTION = "Decoración especial a pedido. Requiere referencia y confirmación por WhatsApp. Puede tener un costo adicional entre $2.000 y $5.000.";
 
       const SOLID_COLORS = [
         "#c05a2b", "#6f7d55", "#d9a441", "#8f4f3e", "#e7b8a4",
@@ -2359,13 +3079,81 @@
       ];
 
       const CATEGORY_IMAGES = {
-        torta: "assets/builder/tortafront1.jpg",
-        tarta: "assets/builder/tartafront.jpg",
-        golosina: "assets/builder/torrafront2.jpg",
+        torta: "assets/Imagenes/imagenes categorias/cat-torta1.webp",
+        tarta: "assets/Imagenes/imagenes categorias/cat-tarta1.webp",
+        golosina: "assets/Imagenes/imagenes categorias/cat-golosinas1.webp",
+        queque: "assets/Imagenes/imagenes categorias/cat-Queques-manzanacanela.webp",
+        rawmesan: "assets/Imagenes/imagenes categorias/cat-rawmesan.webp",
         arma: "assets/builder/armatortfront.jpg"
       };
 
-      const state = { productos: [], formatos: [], opciones: [], decoraciones: [], contacto: [], errors: {}, activeProduct: null, reservas: [] };
+      const PRODUCT_IMAGES = {
+        caiti: "assets/Imagenes/Tortas/Imagen torta/Caiti.webp",
+        chiricoca: "assets/Imagenes/Tortas/Imagen torta/Chiricoca.webp",
+        chucao: "assets/Imagenes/Tortas/Imagen torta/Chucao.webp",
+        garza_egretta: "assets/Imagenes/Tortas/Imagen torta/Garza Egretta.webp",
+        parrot_cake: "assets/Imagenes/Tortas/Imagen torta/Parrot cake.webp",
+        pequen: "assets/Imagenes/Tortas/Imagen torta/Pequen.webp",
+        azahar: "assets/Imagenes/Tartas/imagenes tartas/Tartas-azahar.webp",
+        chincol: "assets/Imagenes/Tartas/imagenes tartas/Tartas-chincol.webp",
+        flamenca: "assets/Imagenes/Tartas/imagenes tartas/Tartas-flamenca.webp",
+        flor_de_cacao: "assets/Imagenes/Tartas/imagenes tartas/Tartas-flordecacao.webp",
+        mirlo: "assets/Imagenes/Tartas/imagenes tartas/Tartas-mirlo.webp",
+        neroli: "assets/Imagenes/Tartas/imagenes tartas/Tartas-neroli.webp",
+        naranjazanahoria: "assets/Imagenes/quques/Imagenes queques/Queques-naranjazanahoria.webp",
+        naranja_zanahoria: "assets/Imagenes/quques/Imagenes queques/Queques-naranjazanahoria.webp",
+        manzanacanela: "assets/Imagenes/quques/Imagenes queques/Queques-manzanacanela.webp",
+        manzana_canela: "assets/Imagenes/quques/Imagenes queques/Queques-manzanacanela.webp",
+        platanoarandano: "assets/Imagenes/quques/Imagenes queques/Queques-arandano-platano.webp",
+        platano_arandano: "assets/Imagenes/quques/Imagenes queques/Queques-arandano-platano.webp",
+        arandano_platano: "assets/Imagenes/quques/Imagenes queques/Queques-arandano-platano.webp",
+        curcuma: "assets/Imagenes/rawmesan/imagen Rawmesan/Rawmesan-curcuma.webp",
+        merken: "assets/Imagenes/rawmesan/imagen Rawmesan/Rawmesan-merken.webp",
+        oregano: "assets/Imagenes/rawmesan/imagen Rawmesan/Rawmesan-oregano.webp",
+        romero: "assets/Imagenes/rawmesan/imagen Rawmesan/Rawmesan-romero.webp",
+        blondies: "assets/Imagenes/Golosinas vegan/Golosinas vegan/Golosinas-blondies.webp",
+        brownies: "assets/Imagenes/Golosinas vegan/Golosinas vegan/Golosinas-brownies.webp",
+        chocman: "assets/Imagenes/Golosinas vegan/Golosinas vegan/Golosinas-chocman.webp",
+        medialunas: "assets/Imagenes/Golosinas vegan/Golosinas vegan/Golosinas-medialunas.webp",
+        pinguinitos: "assets/Imagenes/Golosinas vegan/Golosinas vegan/Golosinas-pinguinitos.webp",
+        prestigios: "assets/Imagenes/Golosinas vegan/Golosinas vegan/Golosinas-prestigios.webp",
+        snickers: "assets/Imagenes/Golosinas vegan/Golosinas vegan/Golosinas-snickers.webp"
+      };
+
+      const PRODUCT_GRAPHICS = {
+        caiti: "assets/Imagenes/Tortas/Aves/Aves-Caiti.png",
+        chiricoca: "assets/Imagenes/Tortas/Aves/Aves-Chiricoca.png",
+        chucao: "assets/Imagenes/Tortas/Aves/Aves-Chucao.png",
+        garza_egretta: "assets/Imagenes/Tortas/Aves/Aves-Garza Egretta.png",
+        parrot_cake: "assets/Imagenes/Tortas/Aves/Aves-Parrot cake.png",
+        pequen: "assets/Imagenes/Tortas/Aves/Aves-Pequen.png",
+        azahar: "assets/Imagenes/Tartas/Aves y flores/Aves y flores-azahar.png",
+        chincol: "assets/Imagenes/Tartas/Aves y flores/Aves y flores-chincol.png",
+        flamenca: "assets/Imagenes/Tartas/Aves y flores/Aves y flores-Flamenca.png",
+        flor_de_cacao: "assets/Imagenes/Tartas/Aves y flores/Aves y flores-Flor de cacao.png",
+        mirlo: "assets/Imagenes/Tartas/Aves y flores/Aves y flores-mirlo.png",
+        neroli: "assets/Imagenes/Tartas/Aves y flores/Aves y flores-neroli.png",
+        naranjazanahoria: "assets/Imagenes/quques/iconos queques/Queques-naranjazanahoria.png",
+        naranja_zanahoria: "assets/Imagenes/quques/iconos queques/Queques-naranjazanahoria.png",
+        manzanacanela: "assets/Imagenes/quques/iconos queques/Queques-manzanacanela.png",
+        manzana_canela: "assets/Imagenes/quques/iconos queques/Queques-manzanacanela.png",
+        platanoarandano: "assets/Imagenes/quques/iconos queques/Queques-arandanoplatano.png",
+        platano_arandano: "assets/Imagenes/quques/iconos queques/Queques-arandanoplatano.png",
+        arandano_platano: "assets/Imagenes/quques/iconos queques/Queques-arandanoplatano.png",
+        curcuma: "assets/Imagenes/rawmesan/Rawmesan icon/Rawmesan icon-curcuma.png",
+        merken: "assets/Imagenes/rawmesan/Rawmesan icon/Rawmesan icon-merken.png",
+        oregano: "assets/Imagenes/rawmesan/Rawmesan icon/Rawmesan icon-oregano.png",
+        romero: "assets/Imagenes/rawmesan/Rawmesan icon/Rawmesan icon-romero.png",
+        blondies: "assets/Imagenes/Golosinas vegan/Golosinas vegan icono/Golosinas-blondies.png",
+        brownies: "assets/Imagenes/Golosinas vegan/Golosinas vegan icono/Golosinas-brownies.png",
+        chocman: "assets/Imagenes/Golosinas vegan/Golosinas vegan icono/Golosinas-chocman.png",
+        medialunas: "assets/Imagenes/Golosinas vegan/Golosinas vegan icono/Golosinas-medialunas.png",
+        pinguinitos: "assets/Imagenes/Golosinas vegan/Golosinas vegan icono/Golosinas-pinguinitos.png",
+        prestigios: "assets/Imagenes/Golosinas vegan/Golosinas vegan icono/Golosinas-prestigios.png",
+        snickers: "assets/Imagenes/Golosinas vegan/Golosinas vegan icono/Golosinas-snickers.png"
+      };
+
+      const state = { productos: [], formatos: [], opciones: [], decoraciones: [], precios_especiales: [], contacto: [], builder_variables: [], errors: {}, activeProduct: null, reservas: [] };
       const $ = (selector) => document.querySelector(selector);
       const els = {
         notice: $("#dataNotice"),
@@ -2392,6 +3180,8 @@
         builderBizcocho: $("#builderBizcocho"),
         builderRelleno: $("#builderRelleno"),
         builderCubierta: $("#builderCubierta"),
+        builderTamano: $("#builderTamano"),
+        builderDecoracion: $("#builderDecoracion"),
         builderOtro: $("#builderOtro"),
         summaryList: $("#summaryList"),
         summaryTotal: $("#summaryTotal"),
@@ -2416,6 +3206,8 @@
         renderContact();
         renderControls();
         renderBuilderOptions();
+        renderTopperNote();
+        renderMoodboard();
         renderCategories();
         renderCatalog();
         renderSummary();
@@ -2434,6 +3226,11 @@
         els.detail.addEventListener("click", (event) => { if (event.target === els.detail) closeDetail(); });
         document.addEventListener("pointerdown", (event) => {
           if (!event.target.closest(".builder-pick")) closeBuilderPicks();
+        });
+        document.addEventListener("click", (event) => {
+          const topper = event.target.closest("[data-topper-image]");
+          if (!topper) return;
+          openTopperImage(topper.dataset.topperImage);
         });
         document.addEventListener("keydown", (event) => {
           if (event.key !== "Escape") return;
@@ -2463,10 +3260,10 @@
       }
 
       async function loadData() {
-        const entries = await Promise.all(Object.entries(CSV_URLS).map(async ([name, url]) => {
+        const entries = await Promise.all(Object.entries(CSV_URLS).map(async ([name, urls]) => {
           try {
-            const text = await fetchCsv(url);
-            return [name, parseCsv(text).map(normalizeRow).filter(isVisible)];
+            const rows = await fetchSheetRows(name, urls);
+            return [name, rows.map(normalizeRow).filter(isVisible)];
           } catch (error) {
             state.errors[name] = error.message;
             return [name, []];
@@ -2474,6 +3271,37 @@
         }));
         entries.forEach(([name, rows]) => state[name] = rows);
         updateNotice();
+      }
+
+      async function fetchSheetRows(name, urls) {
+        const failures = [];
+        for (const url of urls) {
+          try {
+            const text = await fetchCsv(url);
+            const rows = parseCsv(text);
+            if (!hasExpectedColumns(name, rows)) throw new Error("columnas-inesperadas");
+            return rows;
+          } catch (error) {
+            failures.push(error.message);
+          }
+        }
+        throw new Error(failures[0] || "no-publico");
+      }
+
+      function hasExpectedColumns(name, rows) {
+        if (!rows.length) return false;
+        const row = rows[0] || {};
+        const has = (...keys) => keys.every((key) => Object.prototype.hasOwnProperty.call(row, key));
+        const checks = {
+          productos: () => has("id", "categoria", "nombre"),
+          formatos: () => has("id", "categoria", "nombre_formato"),
+          opciones: () => has("id", "tipo", "nombre"),
+          decoraciones: () => has("id", "nombre", "descripcion"),
+          precios_especiales: () => has("producto_id", "formato_id", "precio_usado"),
+          contacto: () => has("campo", "valor"),
+          builder_variables: () => has("grupo", "opcion", "disponible")
+        };
+        return checks[name] ? checks[name]() : true;
       }
 
       async function fetchCsv(url) {
@@ -2495,7 +3323,7 @@
 
       function renderCategories() {
         const categories = uniqueCategories();
-        const visualCategories = (categories.length >= 3 ? categories.slice(0, 3) : ["Tortas", "Tartas dulces", "Especiales"])
+        const visualCategories = (categories.length ? categories : ["Tortas", "Tartas dulces", "Golosinas vegan"])
           .concat("Arma tu torta");
         els.categoryFilter.innerHTML = [`<option value="">Todo el catálogo</option>`]
           .concat(categories.map((category) => `<option value="${escapeHtml(category)}">${escapeHtml(category)}</option>`))
@@ -2548,7 +3376,7 @@
         document.querySelectorAll("[data-solid-open]").forEach((button) => {
           button.addEventListener("click", (event) => {
             event.stopPropagation();
-            openImage(button.dataset.solidOpen, button.dataset.imageAlt || "Producto vegano", button.dataset.imageOpen || "");
+            openImage(button.dataset.solidOpen, button.dataset.imageAlt || "Producto vegano", button.dataset.imageOpen || "", button.dataset.graphicOpen || "", button.dataset.graphicSide || "right", button.dataset.graphicScale || "");
           });
         });
         document.querySelectorAll("[data-reserve]").forEach((button) => {
@@ -2566,20 +3394,23 @@
 
       function groupedCatalogTemplate(products) {
         const groups = groupBy(products, (product) => product.categoria || "Catálogo");
-        return Object.entries(groups).map(([category, items], groupIndex) => `
+        return Object.entries(groups).map(([category, items], groupIndex) => {
+          const description = familyDescription(category);
+          return `
           <section class="catalog-family" id="familia-${cleanKey(category)}">
             <div class="family-head">
               <div>
                 <p class="eyebrow" style="color: var(--clay)">Colección</p>
                 <h3>${escapeHtml(category)}</h3>
-                <p>${escapeHtml(familyDescription(category))}</p>
+                ${description ? `<p>${escapeHtml(description)}</p>` : ""}
               </div>
             </div>
             <div class="catalog-grid">
               ${items.map((product, index) => cardTemplate(product, index + groupIndex)).join("")}
             </div>
           </section>
-        `).join("");
+        `;
+        }).join("");
       }
 
       function groupBy(items, getKey) {
@@ -2593,38 +3424,73 @@
 
       function familyDescription(category) {
         const key = clean(category);
-        if (key.includes("torta")) return "Tortas veganas a pedido con bizcocho, relleno y cubierta definidos, listas para reservar o ajustar.";
-        if (key.includes("tarta")) return "Tartas dulces de base artesanal, fruta, curd, crema vegetal y sabores de temporada.";
-        if (key.includes("golosina")) return "Dulces veganos para sumar al pedido o resolver antojos pequeños.";
-        return "Productos veganos del catálogo, preparados a pedido y sujetos a disponibilidad.";
+        if (key.includes("torta")) return "";
+        if (key.includes("tarta")) return "";
+        if (key.includes("golosina")) return "";
+        if (key.includes("queque") || key.includes("rawmesan") || key.includes("romesan")) return "";
+        return "";
       }
 
       function categoryImage(value) {
         const key = clean(value);
         if (key.includes("arma")) return CATEGORY_IMAGES.arma;
         if (key.includes("golosina")) return CATEGORY_IMAGES.golosina;
+        if (key.includes("queque") || key.includes("quque")) return CATEGORY_IMAGES.queque;
+        if (key.includes("rawmesan") || key.includes("romesan")) return CATEGORY_IMAGES.rawmesan;
         if (key.includes("tarta")) return CATEGORY_IMAGES.tarta;
         if (key.includes("torta")) return CATEGORY_IMAGES.torta;
         return "";
       }
 
+      function keyedAsset(map, value) {
+        const key = cleanKey(value);
+        if (map[key]) return map[key];
+        const compact = key.replaceAll("_", "");
+        const found = Object.entries(map).find(([assetKey]) => key.includes(assetKey) || assetKey.includes(key) || compact.includes(assetKey.replaceAll("_", "")));
+        return found ? found[1] : "";
+      }
+
+      function productImage(product) {
+        return product.foto || keyedAsset(PRODUCT_IMAGES, product.nombre) || categoryImage(product.categoria || product.nombre || "");
+      }
+
+      function productGraphic(product) {
+        return keyedAsset(PRODUCT_GRAPHICS, product.nombre);
+      }
+
+      function productGraphicSide(product) {
+        const key = cleanKey(product.nombre);
+        if (key.includes("caiti") || key.includes("garza_egretta") || key.includes("parrot") || key.includes("mirlo")) return "left";
+        return "right";
+      }
+
+      function productGraphicScale(product) {
+        const category = clean(product.categoria);
+        if (category.includes("golosina")) return "golosina";
+        if (category.includes("tarta")) return "tarta";
+        return cleanKey(product.nombre).includes("garza_egretta") ? "large" : "";
+      }
+
       function cardTemplate(product, index) {
         const id = productId(product);
         const color = solidColor(index);
-        const image = categoryImage(product.categoria || product.nombre || "");
+        const image = productImage(product);
+        const graphic = productGraphic(product);
         const imageStyle = image ? `--media-image:url('${image}');` : "";
         const formats = formatsForProduct(product);
         const hasDecoration = productUsesDecoration(product);
         return `
           <article class="product-card" data-product="${escapeHtml(id)}" data-base-price="${number(product.precio)}" data-product-name="${escapeHtml(product.nombre || "Producto vegano")}">
-            <button class="product-media" type="button" style="--solid-color:${escapeHtml(color)};${imageStyle}" data-solid-open="${escapeHtml(color)}" data-image-open="${escapeHtml(image || "")}" data-image-alt="${escapeHtml(product.nombre || "Producto vegano")}">
+            <button class="product-media" type="button" style="--solid-color:${escapeHtml(color)};${imageStyle}" data-solid-open="${escapeHtml(color)}" data-image-open="${escapeHtml(image || "")}" data-graphic-open="${escapeHtml(graphic || "")}" data-graphic-side="${productGraphicSide(product)}" data-graphic-scale="${productGraphicScale(product)}" data-image-alt="${escapeHtml(product.nombre || "Producto vegano")}">
+              ${graphic ? `<img class="product-bird product-bird--${productGraphicSide(product)} ${productGraphicScale(product) ? `product-bird--${productGraphicScale(product)}` : ""}" src="${escapeHtml(graphic)}" alt="" aria-hidden="true" loading="lazy" />` : ""}
             </button>
             <div class="product-body">
               <h3>${escapeHtml(product.nombre || "Producto vegano")}</h3>
               <p>${escapeHtml(product.descripcion || product.descripcion_poetica || product.relleno || "Producto vegano a pedido.")}</p>
               <div class="quick-config" data-stop-card>
                 <select data-quick-format aria-label="Tamaño">${formatOptions(formats, product)}</select>
-                ${hasDecoration ? `<select data-quick-decoration aria-label="Decoración">${quickOptions(state.decoraciones, "Decoración", "extra", true)}</select><p class="option-help" data-decoration-help></p>` : ""}
+                ${hasDecoration ? `<select data-quick-decoration aria-label="Decoración">${decorationOptions(product)}</select><p class="option-help" data-decoration-help></p>` : ""}
+                <p class="option-error" data-option-error aria-live="polite"></p>
                 <div class="reserve-row">
                   <button class="reserve-button" type="button" data-reserve>Reservar pedido</button>
                 </div>
@@ -2643,6 +3509,29 @@
         }).join("");
       }
 
+      function decorationOptions(product) {
+        const defaultDescription = defaultDecorationDescription(product);
+        const customDescription = customDecorationDescription();
+        return [
+          `<option value="" data-price="0" data-description="">Elegir decoración</option>`,
+          `<option value="predeterminado" data-price="0" data-description="${escapeHtml(defaultDescription)}" title="${escapeHtml(defaultDescription)}">Predeterminado</option>`,
+          `<option value="personalizado" data-price="0" data-description="${escapeHtml(customDescription)}" title="${escapeHtml(customDescription)}">Personalizado</option>`
+        ].join("");
+      }
+
+      function defaultDecorationDescription(product) {
+        return product.decoracion_predeterminada
+          || product.descripcion_decoracion
+          || product.decoracion_descripcion
+          || product.detalle_decoracion
+          || `Decoración predeterminada de catálogo para ${product.nombre || "este producto"}: bizcocho ${product.bizcocho || "según catálogo"}, relleno ${product.relleno || "según catálogo"} y cubierta ${product.cubierta || "según catálogo"}.`;
+      }
+
+      function customDecorationDescription() {
+        const row = state.decoraciones.find((item) => clean(item.nombre || item.categoria || item.id).includes("personaliz"));
+        return row?.descripcion || row?.detalle || row?.descripcion_decoracion || CUSTOM_DECORATION_DESCRIPTION;
+      }
+
 
 
       function formatOptions(rows, product) {
@@ -2651,10 +3540,15 @@
           const category = clean(product.categoria || product.nombre || "");
           const isRawmesan = category.includes("rawmesan") || category.includes("romesan");
           const label = isRawmesan ? "Elegir precio" : "Precio único";
-          const fallback = base ? `${label} - ${formatMoney(base)}` : label;
-          return `<option value="" data-price="${base}">${escapeHtml(fallback)}</option>`;
+          const format = { id: "precio_unico", precio: base };
+          const price = priceForFormat(product, format);
+          const fallback = price ? `${label} - ${formatMoney(price)}` : label;
+          return `<option value="precio_unico" data-price="${price}" data-format-id="precio_unico" data-special-price="${hasSpecialPrice(product, format) ? "1" : ""}">${escapeHtml(fallback)}</option>`;
         }
-        return `<option value="" data-price="0">Elegir tamaño</option>` + rows.map((row, index) => `<option value="${index}" data-price="${number(row.precio)}">${escapeHtml(formatLabel(row))}</option>`).join("");
+        return `<option value="" data-price="0">Elegir tamaño</option>` + rows.map((row, index) => {
+          const price = priceForFormat(product, row);
+          return `<option value="${index}" data-price="${price}" data-format-id="${escapeHtml(row.id || "")}" data-special-price="${hasSpecialPrice(product, row) ? "1" : ""}">${escapeHtml(formatLabel(row, price))}</option>`;
+        }).join("");
       }
 
       function productUsesDecoration(product) {
@@ -2663,19 +3557,49 @@
       }
 
       function formatsForProduct(product) {
-        const category = clean(product.categoria);
-        const formats = state.formatos.filter((row) => clean(row.categoria) === category);
-        if (formats.length) return formats;
         const ref = clean(product.formato_ref);
-        return state.formatos.filter((row) => ref.includes(clean(row.categoria)));
+        const id = cleanKey(productId(product));
+        if (ref === "precio_unico") {
+          return state.formatos.filter((row) => cleanKey(row.categoria) === id || cleanKey(row.id) === `${id}_precio_unico`);
+        }
+        if (ref.includes("tortas")) return state.formatos.filter((row) => cleanKey(row.categoria) === "tortas");
+        if (ref.includes("tartas")) return state.formatos.filter((row) => cleanKey(row.categoria) === "tartas");
+        if (ref.includes("rawmesan") || ref.includes("romesan")) return state.formatos.filter((row) => {
+          const category = cleanKey(row.categoria);
+          return category === "rawmesan" || category === "romesan";
+        });
+        const category = cleanKey(product.categoria);
+        const formats = state.formatos.filter((row) => cleanKey(row.categoria) === category);
+        if (formats.length) return formats;
+        return state.formatos.filter((row) => cleanKey(row.categoria) === id || cleanKey(row.id).startsWith(`${id}_`));
       }
 
-      function formatLabel(row) {
+      function priceForFormat(product, format) {
+        const special = specialPriceFor(product, format);
+        return special || number(format.precio);
+      }
+
+      function hasSpecialPrice(product, format) {
+        return specialPriceFor(product, format) > 0;
+      }
+
+      function specialPriceFor(product, format) {
+        const productKey = cleanKey(productId(product));
+        const formatKey = cleanKey(format.id);
+        const row = state.precios_especiales.find((item) => {
+          return cleanKey(item.producto_id || item.product_id || item.producto) === productKey
+            && cleanKey(item.formato_id || item.format_id || item.formato) === formatKey
+            && !isFalseyValue(item.disponible);
+        });
+        return number(row?.precio_especial || row?.precio_usado || row?.precio);
+      }
+
+      function formatLabel(row, price = number(row.precio)) {
         const persons = row.personas || row.porciones || "";
         const parts = [
           row.nombre,
           persons ? `${personRange(persons)} personas` : "",
-          number(row.precio) ? formatMoney(number(row.precio)) : ""
+          price ? formatMoney(price) : ""
         ].filter(Boolean);
         return parts.join(" · ");
       }
@@ -2685,13 +3609,15 @@
       }
 
       function selectedQuick(select) {
-        if (!select) return { label: "No aplica", price: 0 };
+        if (!select) return { label: "No aplica", price: 0, value: "", description: "" };
         const option = select.options[select.selectedIndex];
         const price = number(option?.dataset.price);
         const label = option?.textContent || "Sin ajuste";
         return {
           label: option?.value === "" && !price && clean(label).startsWith("elegir") ? "A definir" : label,
-          price
+          price,
+          value: option?.value || "",
+          description: option?.dataset.description || ""
         };
       }
 
@@ -2713,6 +3639,7 @@
         const total = format.price + decoration.price;
         card.dataset.currentTotal = String(total);
         updateDecorationHelp(card);
+        setCardError(card, "");
       }
 
       function addReservation(card) {
@@ -2721,6 +3648,11 @@
         if (!product) return;
         const format = selectedQuick(card.querySelector("[data-quick-format]"));
         const decoration = selectedQuick(card.querySelector("[data-quick-decoration]"));
+        const validation = validateReservation(product, format, decoration);
+        if (validation) {
+          setCardError(card, validation);
+          return;
+        }
         const total = format.price + decoration.price;
         state.reservas.push({
           name: product.nombre || "Producto vegano",
@@ -2730,16 +3662,31 @@
           cubierta: product.cubierta || "según catálogo",
           format: format.label,
           decoration: productUsesDecoration(product) ? decoration.label : "No aplica",
+          decorationDescription: productUsesDecoration(product) ? decoration.description : "",
           total
         });
         renderSummary();
         location.hash = "#resumen";
       }
 
+      function validateReservation(product, format, decoration) {
+        if (format.value === "") return "Debes elegir un tamaño antes de reservar.";
+        if (productUsesDecoration(product) && decoration.value === "") return "Debes elegir una decoración antes de reservar.";
+        return "";
+      }
+
+      function setCardError(card, message) {
+        const error = card?.querySelector("[data-option-error]");
+        if (!error) return;
+        error.textContent = message;
+      }
+
       function renderBuilderOptions() {
-        fillBuilderChecks(els.builderBizcocho, BUILDER_OPTIONS.bizcocho, "bizcocho");
-        fillBuilderChecks(els.builderRelleno, BUILDER_OPTIONS.relleno, "relleno");
-        fillBuilderSelect(els.builderCubierta, BUILDER_OPTIONS.cubierta);
+        fillBuilderChecks(els.builderBizcocho, builderOptionsFor("bizcocho", BUILDER_OPTIONS.bizcocho), "bizcocho");
+        fillBuilderChecks(els.builderRelleno, builderOptionsFor("relleno", BUILDER_OPTIONS.relleno), "relleno");
+        fillBuilderSelect(els.builderCubierta, builderOptionsFor("cubierta", BUILDER_OPTIONS.cubierta));
+        fillBuilderSelect(els.builderTamano, builderOptionsFor("tamano", BUILDER_OPTIONS.tamano));
+        fillBuilderSelect(els.builderDecoracion, builderOptionsFor("decoracion", BUILDER_OPTIONS.decoracion));
         document.querySelectorAll(".builder-checks input").forEach((input) => input.addEventListener("change", updateBuilderCounts));
         document.querySelectorAll(".builder-pick").forEach((pick) => {
           pick.addEventListener("toggle", () => {
@@ -2750,6 +3697,137 @@
           });
         });
         updateBuilderCounts();
+      }
+
+      function builderOptionsFor(group, fallback) {
+        const options = state.builder_variables
+          .filter((row) => cleanKey(row.grupo) === cleanKey(group))
+          .filter(isVisible)
+          .sort((a, b) => number(a.orden) - number(b.orden))
+          .map((row) => row.opcion)
+          .filter(Boolean);
+        return options.length ? options : fallback;
+      }
+
+      function renderTopperNote() {
+        const price = topperPrice();
+        const priceLabel = $("#topperPrice");
+        if (priceLabel) priceLabel.textContent = formatMoney(price || 10000);
+      }
+
+      function topperPrice() {
+        const row = state.builder_variables.find((item) => {
+          const group = cleanKey(item.grupo);
+          const option = clean(item.opcion || item.nombre || "");
+          return isVisible(item) && (group === "topper" || option.includes("topper") || option.includes("quiltru"));
+        });
+        return number(row?.precio_adicional || row?.precio_extra || row?.precio);
+      }
+
+      function renderMoodboard() {
+        const track = $("#moodboardTrack");
+        const progress = $("#moodboardProgress");
+        if (!track) return;
+        track.innerHTML = MOODBOARD_SLIDES.map((slide) => `
+          <article class="moodboard-card" style="--tone:${slide.tone}; --accent:${slide.accent}; --tilt:${slide.tilt};">
+            <img class="moodboard-photo" src="${slide.image}" alt="" loading="lazy" draggable="false">
+            <div class="moodboard-content">
+              <h3>${escapeHtml(slide.title)}</h3>
+            </div>
+          </article>
+        `).join("");
+        setupMoodboardDrag(track);
+        setupMoodboardMotion(track, progress);
+      }
+
+      function setupMoodboardDrag(track) {
+        let active = false;
+        let startX = 0;
+        let startScroll = 0;
+
+        track.addEventListener("pointerdown", (event) => {
+          active = true;
+          startX = event.clientX;
+          startScroll = track.scrollLeft;
+          track.dataset.userActive = "true";
+          track.classList.add("is-dragging");
+          track.setPointerCapture(event.pointerId);
+        });
+
+        track.addEventListener("pointermove", (event) => {
+          if (!active) return;
+          event.preventDefault();
+          track.scrollLeft = startScroll - (event.clientX - startX);
+        });
+
+        const stop = (event) => {
+          if (!active) return;
+          active = false;
+          track.classList.remove("is-dragging");
+          window.setTimeout(() => {
+            if (!track.matches(":hover")) track.dataset.userActive = "";
+          }, 1200);
+          if (track.hasPointerCapture(event.pointerId)) track.releasePointerCapture(event.pointerId);
+        };
+
+        track.addEventListener("pointerup", stop);
+        track.addEventListener("pointercancel", stop);
+        track.addEventListener("pointerleave", stop);
+      }
+
+      function setupMoodboardMotion(track, progress) {
+        const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        let frame = 0;
+        let lastTime = 0;
+
+        const update = () => {
+          frame = 0;
+          updateMoodboardProgress(track, progress);
+          if (!reduceMotion) updateMoodboardParallax(track);
+        };
+
+        const schedule = () => {
+          if (frame) return;
+          frame = requestAnimationFrame(update);
+        };
+
+        track.addEventListener("scroll", schedule, { passive: true });
+        window.addEventListener("resize", schedule);
+        update();
+
+        if (!reduceMotion) {
+          const autoScroll = (time) => {
+            if (!lastTime) lastTime = time;
+            const delta = Math.min(40, time - lastTime);
+            lastTime = time;
+            if (!track.dataset.userActive) {
+              const max = track.scrollWidth - track.clientWidth;
+              if (max > 0) {
+                track.scrollLeft = track.scrollLeft >= max - 1 ? 0 : track.scrollLeft + delta * 0.085;
+              }
+            }
+            requestAnimationFrame(autoScroll);
+          };
+          requestAnimationFrame(autoScroll);
+        }
+      }
+
+      function updateMoodboardProgress(track, progress) {
+        if (!progress) return;
+        const max = track.scrollWidth - track.clientWidth;
+        const percent = max > 0 ? Math.min(100, Math.max(0, (track.scrollLeft / max) * 100)) : 100;
+        progress.style.setProperty("--progress", `${percent}%`);
+      }
+
+      function updateMoodboardParallax(track) {
+        const trackBox = track.getBoundingClientRect();
+        const trackCenter = trackBox.left + trackBox.width / 2;
+        track.querySelectorAll(".moodboard-card").forEach((card) => {
+          const box = card.getBoundingClientRect();
+          const cardCenter = box.left + box.width / 2;
+          const distance = (cardCenter - trackCenter) / trackBox.width;
+          card.style.setProperty("--parallax-x", `${(distance * -46).toFixed(1)}px`);
+        });
       }
 
       function fillBuilderChecks(container, options, group) {
@@ -2785,6 +3863,8 @@
         const bizcochos = selectedBuilderChecks("bizcocho");
         const rellenos = selectedBuilderChecks("relleno");
         const cubierta = els.builderCubierta?.value || "A definir";
+        const tamano = els.builderTamano?.value || "A definir";
+        const decoracion = els.builderDecoracion?.value || "A definir";
         const otro = (els.builderOtro?.value || "").trim();
         const reservation = {
           name: "Torta vegana personalizada",
@@ -2792,8 +3872,8 @@
           bizcocho: bizcochos.length ? bizcochos.join(" + ") : "A definir",
           relleno: rellenos.length ? rellenos.join(" + ") : "A definir",
           cubierta,
-          format: "Cotizacion a medida",
-          decoration: "No aplica",
+          format: tamano,
+          decoration: decoracion,
           extra: otro,
           total: 0
         };
@@ -2809,6 +3889,8 @@
           `Cubierta: ${item.cubierta}`,
           `Relleno: ${item.relleno}`,
           `Bizcocho: ${item.bizcocho}`,
+          `Tamaño: ${item.format}`,
+          `Decoración: ${item.decoration}`,
           item.extra ? `Quiero agregar: ${item.extra}` : "",
           "",
           "Precio: a confirmar",
@@ -2827,12 +3909,13 @@
         els.summaryList.innerHTML = state.reservas.map((item, index) => {
           const meta = [item.category, item.format, item.decoration !== "No aplica" ? item.decoration : ""].filter(Boolean).join(" · ");
           const extraLine = item.extra ? `<br>Otro pedido: ${escapeHtml(item.extra)}` : "";
+          const decorationLine = item.decorationDescription ? `<br>Detalle decoración: ${escapeHtml(item.decorationDescription)}` : "";
           const priceLine = item.total ? `<strong>${formatMoney(item.total)}</strong>` : "";
           return `
             <article class="summary-item">
               <h3>${escapeHtml(item.name)}</h3>
               <p><strong>${escapeHtml(meta)}</strong></p>
-              <p>Bizcocho: ${escapeHtml(item.bizcocho)}<br>Relleno: ${escapeHtml(item.relleno)}<br>Cubierta: ${escapeHtml(item.cubierta)}${extraLine}</p>
+              <p>Bizcocho: ${escapeHtml(item.bizcocho)}<br>Relleno: ${escapeHtml(item.relleno)}<br>Cubierta: ${escapeHtml(item.cubierta)}${decorationLine}${extraLine}</p>
               <div class="reserve-row">
                 ${priceLine}
                 <button class="reserve-button" type="button" data-remove-reservation="${index}">Quitar</button>
@@ -2853,17 +3936,26 @@
           `Cubierta: ${item.cubierta}`,
           `Formato: ${item.format}`,
           item.decoration !== "No aplica" ? `Decoración: ${item.decoration}` : "",
+          item.decorationDescription ? `Detalle decoración: ${item.decorationDescription}` : "",
           item.extra ? `Otro pedido: ${item.extra}` : "",
           `Estimado: ${item.total ? formatMoney(item.total) : "a confirmar"}`
         ].filter(Boolean).join("\n"));
         return `Hola Cocina Libre, quiero reservar/cotizar este pedido vegano:\n\n${lines.join("\n\n")}\n\nTotal estimado: ${total ? formatMoney(total) : "a confirmar"}\nQuedo atento/a para confirmar fecha, disponibilidad y precio final.`;
       }
 
-      function openImage(src, alt, image = "") {
+      function openImage(src, alt, image = "", graphic = "", graphicSide = "right", graphicScale = "") {
         const imageStyle = image ? `--zoom-image:url('${escapeHtml(image)}');` : "";
         els.detail.querySelector(".detail-card")?.style.setProperty("--zoom-frame", src);
-        els.media.innerHTML = `<div class="solid-zoom" style="--solid-color:${escapeHtml(src)};--zoom-frame:${escapeHtml(src)};${imageStyle}" aria-label="${escapeHtml(alt)}"></div>`;
+        const scaleClass = graphicScale ? ` zoom-bird--${escapeHtml(graphicScale)}` : "";
+        const graphicMarkup = graphic ? `<span class="zoom-bird zoom-bird--${escapeHtml(graphicSide)}${scaleClass}" style="--zoom-bird-image:url('${escapeHtml(graphic)}')" aria-hidden="true"></span>` : "";
+        els.media.innerHTML = `<div class="solid-zoom" style="--solid-color:${escapeHtml(src)};--zoom-frame:${escapeHtml(src)};${imageStyle}" aria-label="${escapeHtml(alt)}">${graphicMarkup}</div>`;
         els.detail.classList.add("is-open", "image-viewer");
+      }
+
+      function openTopperImage(image) {
+        if (!image) return;
+        openImage("#6f7d55", "Ejemplo de letrero o figura para torta", image);
+        els.detail.classList.add("topper-viewer");
       }
 
       function quickWhatsapp(product) {
@@ -2871,7 +3963,9 @@
       }
 
       function imageTemplate(item, index = 0) {
-        return `<div class="product-media" style="--solid-color:${escapeHtml(solidColor(index))}" aria-label="${escapeHtml(item.nombre || "Producto vegano")}"></div>`;
+        const image = productImage(item);
+        const imageStyle = image ? `--media-image:url('${image}');` : "";
+        return `<div class="product-media" style="--solid-color:${escapeHtml(solidColor(index))};${imageStyle}" aria-label="${escapeHtml(item.nombre || "Producto vegano")}"></div>`;
       }
 
       function openDetail(id) {
@@ -2879,7 +3973,9 @@
         if (!product) return;
         state.activeProduct = product;
         const index = state.productos.findIndex((item) => productId(item) === id);
-        els.media.innerHTML = `<div class="solid-zoom" style="--solid-color:${escapeHtml(solidColor(Math.max(index, 0)))}" aria-label="${escapeHtml(product.nombre || "Producto vegano")}"></div>`;
+        const image = productImage(product);
+        const imageStyle = image ? `--zoom-image:url('${escapeHtml(image)}');` : "";
+        els.media.innerHTML = `<div class="solid-zoom" style="--solid-color:${escapeHtml(solidColor(Math.max(index, 0)))};${imageStyle}" aria-label="${escapeHtml(product.nombre || "Producto vegano")}"></div>`;
         els.title.textContent = product.nombre || "Producto vegano";
         els.description.textContent = product.descripcion_poetica || product.descripcion || "Hecho a pedido.";
         els.ingredients.innerHTML = [
@@ -2893,7 +3989,7 @@
       }
 
       function closeDetail() {
-        els.detail.classList.remove("is-open", "image-viewer");
+        els.detail.classList.remove("is-open", "image-viewer", "topper-viewer");
       }
 
       function renderControls() {
@@ -2941,13 +4037,11 @@
       function renderContact() {
         const phone = contact("whatsapp");
         const instagram = contact("instagram");
-        const claim = contact("claim");
-        if (claim) els.contactClaim.textContent = claim;
         const emptyMessage = "Hola Cocina Libre, quiero cotizar una torta vegana a pedido.";
         els.navWhatsapp.href = "#resumen";
         els.contactWhatsapp.href = "#resumen";
         els.finalWhatsapp.href = whatsappLink(emptyMessage);
-        if (instagram) {
+        if (instagram && els.contactInstagram) {
           const handle = instagram.replace("@", "");
           els.contactInstagram.href = `https://instagram.com/${handle}`;
           els.contactInstagram.textContent = instagram;
@@ -2998,10 +4092,17 @@
           relleno: ["relleno", "rellenos"],
           cubierta: ["cubierta", "cobertura"],
           precio: ["precio", "precio_base", "precio_desde", "valor", "desde"],
+          precio_especial: ["precio_especial", "precio_final", "precio_usado"],
           precio_extra: ["precio_extra", "extra", "recargo"],
+          decoracion_predeterminada: ["decoracion_predeterminada", "decoracion_default", "descripcion_decoracion", "decoracion_descripcion", "detalle_decoracion"],
           porciones: ["porciones", "personas", "formato", "nombre_formato", "tamano", "tamaño"],
           foto: ["foto", "foto_url", "imagen", "imagen_url", "url_imagen"],
           categoria: ["categoria", "tipo"],
+          producto_id: ["producto_id", "id_producto", "product_id"],
+          formato_id: ["formato_id", "id_formato", "format_id"],
+          grupo: ["grupo", "categoria", "tipo"],
+          opcion: ["opcion", "nombre", "valor"],
+          orden: ["orden", "posicion"],
           disponible: ["disponible", "visible", "publicar"],
           activo: ["activo", "estado"]
         };
@@ -3018,6 +4119,7 @@
       function selected(select, rows) { return select.value === "" ? null : rows[Number(select.value)]; }
       function productId(product) { return product.id || cleanKey(product.nombre || JSON.stringify(product)); }
       function isVisible(row) { return ![row.disponible, row.activo].map((value) => String(value || "").toLowerCase().trim()).some((value) => ["no", "false", "0", "oculto", "inactivo"].includes(value)); }
+      function isFalseyValue(value) { return ["no", "false", "0", "oculto", "inactivo"].includes(String(value || "").toLowerCase().trim()); }
       function cleanKey(value) { return String(value || "").trim().toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]+/g, "_").replace(/^_|_$/g, ""); }
       function clean(value) { return String(value || "").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, ""); }
       function number(value) { return Number.parseFloat(String(value || "").replace(/[^\d,-]/g, "").replace(",", ".")) || 0; }
