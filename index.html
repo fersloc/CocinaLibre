@@ -4,6 +4,18 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Cocina Libre | Pastelería vegana a pedido</title>
+    <meta name="description" content="Pastelería vegana artesanal a pedido en Chile. Tortas, tartas, queques y golosinas 100% vegetales, sin lácteos ni huevo. Cotiza tu torta personalizada." />
+    <meta name="keywords" content="tortas veganas, pastelería vegana, tortas sin huevo, tartas veganas, queques veganos, repostería vegana Chile, tortas a pedido" />
+    <meta name="author" content="Cocina Libre" />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://fersloc.github.io/CocinaLibre/" />
+    <meta name="theme-color" content="#435137" />
+    <meta property="og:title" content="Cocina Libre | Pastelería vegana a pedido" />
+    <meta property="og:description" content="Tortas veganas artesanales hechas a pedido. Bizcochos, rellenos y cubiertas 100% vegetales." />
+    <meta property="og:image" content="https://fersloc.github.io/CocinaLibre/assets/builder/portad1.jpg" />
+    <meta property="og:url" content="https://fersloc.github.io/CocinaLibre/" />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet" />
@@ -2084,6 +2096,28 @@
 
       .footer-copy {
         justify-self: center;
+        text-align: center;
+      }
+
+      .footer-instagram {
+        display: flex;
+        width: fit-content;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        margin: 6px auto 0;
+        color: var(--sage);
+        text-decoration: none;
+        font-weight: 600;
+      }
+
+      .footer-instagram:hover {
+        color: var(--clay);
+      }
+
+      .footer-instagram-icon {
+        width: 18px;
+        height: 18px;
       }
 
       .footer-bird-wrap,
@@ -2935,7 +2969,13 @@
         <span class="footer-stamp-wrap"><img class="footer-stamp" src="assets/Imagenes/recursosGraficos/recursos graficos extra-productosveganos.webp" alt="" /></span>
         <span class="footer-bird-wrap"><img class="footer-bird" src="assets/Imagenes/recursosGraficos/recursos graficos extra-chincol3.webp" alt="" /></span>
       </span>
-      <span class="footer-copy">Cocina Libre · Pastelería vegana a pedido</span>
+      <span class="footer-copy">
+        Cocina Libre · Pastelería vegana a pedido<br />
+        <a id="contactInstagram" class="footer-instagram" href="#" target="_blank" rel="noreferrer" style="display:none" aria-label="Instagram de Cocina Libre">
+          <svg class="footer-instagram-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M12 2c2.717 0 3.056.01 4.122.06 1.065.05 1.79.217 2.428.465.66.254 1.216.598 1.772 1.153.5.5.9 1.112 1.153 1.772.247.637.415 1.363.465 2.428.05 1.066.06 1.405.06 4.122s-.01 3.056-.06 4.122c-.05 1.065-.218 1.79-.465 2.428a4.883 4.883 0 01-1.153 1.772c-.5.5-1.112.9-1.772 1.153-.637.247-1.363.415-2.428.465-1.066.05-1.405.06-4.122.06s-3.056-.01-4.122-.06c-1.065-.05-1.79-.218-2.428-.465a4.883 4.883 0 01-1.772-1.153 4.883 4.883 0 01-1.153-1.772c-.247-.637-.415-1.363-.465-2.428C2.013 15.056 2 14.717 2 12s.01-3.056.06-4.122c.05-1.066.217-1.79.465-2.428a4.883 4.883 0 011.153-1.772A4.883 4.883 0 015.45 2.525c.637-.248 1.363-.415 2.428-.465C8.944 2.013 9.283 2 12 2zm0 1.802c-2.67 0-2.986.01-4.04.058-.976.045-1.505.207-1.858.344-.466.181-.8.398-1.15.748-.35.35-.567.684-.748 1.15-.137.353-.3.882-.344 1.858-.048 1.054-.058 1.37-.058 4.04s.01 2.986.058 4.04c.045.976.207 1.505.344 1.858.181.466.398.8.748 1.15.35.35.684.567 1.15.748.353.137.882.3 1.858.344 1.054.048 1.37.058 4.04.058s2.986-.01 4.04-.058c.976-.045 1.505-.207 1.858-.344.466-.181.8-.398 1.15-.748.35-.35.567-.684.748-1.15.137-.353.3-.882.344-1.858.048-1.054.058-1.37.058-4.04s-.01-2.986-.058-4.04c-.045-.976-.207-1.505-.344-1.858a3.09 3.09 0 00-.748-1.15 3.09 3.09 0 00-1.15-.748c-.353-.137-.882-.3-1.858-.344-1.054-.048-1.37-.058-4.04-.058zm0 4.594a5.604 5.604 0 110 11.208 5.604 5.604 0 010-11.208zm0 1.802a3.802 3.802 0 100 7.604 3.802 3.802 0 000-7.604zm5.838-1.995a1.31 1.31 0 11-2.62 0 1.31 1.31 0 012.62 0z"/></svg>
+          <span class="footer-instagram-handle"></span>
+        </a>
+      </span>
     </footer>
 
     <script>
@@ -4071,7 +4111,9 @@
         if (instagram && els.contactInstagram) {
           const handle = instagram.replace("@", "");
           els.contactInstagram.href = `https://instagram.com/${handle}`;
-          els.contactInstagram.textContent = instagram;
+          const handleLabel = els.contactInstagram.querySelector(".footer-instagram-handle");
+          if (handleLabel) handleLabel.textContent = instagram;
+          els.contactInstagram.style.display = "";
         }
       }
 
