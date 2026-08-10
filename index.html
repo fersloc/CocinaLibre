@@ -916,6 +916,18 @@
         padding: 0 10px;
       }
 
+      .quick-config select.quick-format--fixed {
+        border: none;
+        background: transparent;
+        padding: 0 0 0 2px;
+        appearance: none;
+        -webkit-appearance: none;
+        pointer-events: none;
+        color: var(--ink);
+        opacity: 1;
+        font-weight: 600;
+      }
+
       .option-help {
         position: relative;
         width: 100%;
@@ -3479,6 +3491,7 @@
         const imageStyle = image ? `--media-image:url('${image}');` : "";
         const formats = formatsForProduct(product);
         const hasDecoration = productUsesDecoration(product);
+        const isFixedFormat = formats.length <= 1;
         return `
           <article class="product-card" data-product="${escapeHtml(id)}" data-base-price="${number(product.precio)}" data-product-name="${escapeHtml(product.nombre || "Producto vegano")}">
             <button class="product-media" type="button" style="--solid-color:${escapeHtml(color)};${imageStyle}" data-solid-open="${escapeHtml(color)}" data-image-open="${escapeHtml(image || "")}" data-graphic-open="${escapeHtml(graphic || "")}" data-graphic-side="${productGraphicSide(product)}" data-graphic-scale="${productGraphicScale(product)}" data-image-alt="${escapeHtml(product.nombre || "Producto vegano")}">
@@ -3488,7 +3501,7 @@
               <h3>${escapeHtml(product.nombre || "Producto vegano")}</h3>
               <p>${escapeHtml(product.descripcion || product.descripcion_poetica || product.relleno || "Producto vegano a pedido.")}</p>
               <div class="quick-config" data-stop-card>
-                <select data-quick-format aria-label="Tamaño">${formatOptions(formats, product)}</select>
+                <select data-quick-format aria-label="Tamaño" class="${isFixedFormat ? "quick-format--fixed" : ""}" ${isFixedFormat ? "disabled" : ""}>${formatOptions(formats, product)}</select>
                 ${hasDecoration ? `<select data-quick-decoration aria-label="Decoración">${decorationOptions(product)}</select><p class="option-help" data-decoration-help></p>` : ""}
                 <p class="option-error" data-option-error aria-live="polite"></p>
                 <div class="reserve-row">
@@ -3539,11 +3552,16 @@
         if (!rows.length) {
           const category = clean(product.categoria || product.nombre || "");
           const isRawmesan = category.includes("rawmesan") || category.includes("romesan");
-          const label = isRawmesan ? "Elegir precio" : "Precio único";
+          const label = isRawmesan ? "Elegir precio" : "Precio";
           const format = { id: "precio_unico", precio: base };
           const price = priceForFormat(product, format);
-          const fallback = price ? `${label} - ${formatMoney(price)}` : label;
+          const fallback = price ? `${label} · ${formatMoney(price)}` : label;
           return `<option value="precio_unico" data-price="${price}" data-format-id="precio_unico" data-special-price="${hasSpecialPrice(product, format) ? "1" : ""}">${escapeHtml(fallback)}</option>`;
+        }
+        if (rows.length === 1) {
+          const row = rows[0];
+          const price = priceForFormat(product, row);
+          return `<option value="0" data-price="${price}" data-format-id="${escapeHtml(row.id || "")}" data-special-price="${hasSpecialPrice(product, row) ? "1" : ""}">${escapeHtml(formatLabel(row, price))}</option>`;
         }
         return `<option value="" data-price="0">Elegir tamaño</option>` + rows.map((row, index) => {
           const price = priceForFormat(product, row);
@@ -3595,10 +3613,19 @@
       }
 
       function formatLabel(row, price = number(row.precio)) {
+        const nombreClean = clean(row.nombre);
+        const isPrecioUnico = nombreClean.includes("precio unico") || nombreClean.includes("precio único");
+        const nombre = isPrecioUnico ? "Precio" : row.nombre;
         const persons = row.personas || row.porciones || "";
+        const personsClean = clean(persons);
+        let personsText = "";
+        if (persons && !isPrecioUnico && personsClean !== nombreClean && !personsClean.includes("unico")) {
+          const match = String(persons).match(/\d+/);
+          personsText = match ? `${match[0]} personas` : personRange(persons);
+        }
         const parts = [
-          row.nombre,
-          persons ? `${personRange(persons)} personas` : "",
+          nombre,
+          personsText,
           price ? formatMoney(price) : ""
         ].filter(Boolean);
         return parts.join(" · ");
