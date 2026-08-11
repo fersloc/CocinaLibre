@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://fersloc.github.io/CocinaLibre/sitemap.xml
