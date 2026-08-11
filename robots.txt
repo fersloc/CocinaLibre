@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://fersloc.github.io/CocinaLibre/sitemap.xml
+Sitemap: https://cocinalibre.cl/sitemap.xml
