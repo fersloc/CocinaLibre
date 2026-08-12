@@ -1,0 +1,13 @@
+# Archivos de trabajo temporal (revisiones, pruebas) - no se suben al repo
+_*.html
+_*.md
+PROGRESO.md
+
+# Configuración local del asistente/herramientas de desarrollo
+.claude/
+
+# Basura típica de sistema operativo y editores
+.DS_Store
+Thumbs.db
+*.swp
+*.bak
