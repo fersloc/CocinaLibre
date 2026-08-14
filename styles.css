@@ -169,9 +169,9 @@
       }
 
       .brand-bird--hero {
-        width: clamp(116px, 13vw, 186px);
+        width: clamp(100px, 11vw, 160px);
         left: clamp(18px, 5vw, 86px);
-        bottom: clamp(52px, 8vw, 122px);
+        bottom: clamp(12px, 3vw, 40px);
         transform: rotate(-12deg) scaleX(-1);
       }
 
