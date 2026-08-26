@@ -401,6 +401,38 @@
         border: 0;
       }
 
+      .map-facade {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        text-align: center;
+        padding: 20px;
+        background: var(--cream-2);
+        border: 0;
+        cursor: pointer;
+        font-family: inherit;
+        color: var(--clay);
+      }
+
+      .map-facade svg {
+        width: 34px;
+        height: 34px;
+      }
+
+      .map-facade strong {
+        font-size: 0.98rem;
+      }
+
+      .map-facade span {
+        font-size: 0.78rem;
+        color: var(--muted);
+        max-width: 320px;
+      }
+
       .about-contact {
         max-width: 760px;
         margin: 0 auto 56px;
@@ -578,7 +610,7 @@
       </section>
 
       <section class="shell about-columns">
-        <div>
+        <div id="horario">
           <h2>Horario de atención</h2>
           <table class="schedule-table">
             <tr><td>Martes a viernes</td><td>15:00 – 19:30</td></tr>
@@ -589,13 +621,12 @@
         </div>
         <div>
           <h2>Dónde estamos</h2>
-          <div class="about-map">
-            <iframe
-              src="https://www.google.com/maps?q=Arturo+Gordon+3908,+Macul,+Chile&output=embed"
-              loading="lazy"
-              referrerpolicy="no-referrer-when-downgrade"
-              title="Ubicación de Cocina Libre en Macul"
-            ></iframe>
+          <div class="about-map" id="aboutMap">
+            <button type="button" class="map-facade" id="mapFacadeBtn" aria-label="Cargar mapa de Google Maps con la ubicación de Cocina Libre">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M12 21s7-6.2 7-11.5A7 7 0 1 0 5 9.5C5 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.4"/></svg>
+              <strong>Ver mapa interactivo</strong>
+              <span>Al cargarlo se conecta con Google Maps, que puede usar sus propias cookies. Ver <a href="politica-de-privacidad.html#mapa" style="color: var(--clay);">política de privacidad</a>.</span>
+            </button>
           </div>
           <p style="margin-top: 10px; color: var(--muted);">Arturo Gordon 3908, local D, Macul, Región Metropolitana.</p>
         </div>
@@ -621,7 +652,7 @@
             <span class="footer-instagram-handle">@cocinalibre.vegana</span>
           </a>
         </span>
-        <span class="footer-credit">Contenido bajo <a href="https://creativecommons.org/licenses/by/4.0/deed.es" target="_blank" rel="license noreferrer">licencia CC BY 4.0</a> · Hecho por fersloc</span>
+        <span class="footer-credit">Contenido bajo <a href="https://creativecommons.org/licenses/by/4.0/deed.es" target="_blank" rel="license noreferrer">licencia CC BY 4.0</a> · Hecho por fersloc · <a href="politica-de-privacidad.html">Política de privacidad</a></span>
       </span>
     </footer>
 
@@ -630,6 +661,21 @@
       <img id="photoLightboxImg" src="" alt="" />
     </div>
 
+    <script>
+      (function () {
+        const mapBtn = document.getElementById("mapFacadeBtn");
+        if (mapBtn) {
+          mapBtn.addEventListener("click", function () {
+            const iframe = document.createElement("iframe");
+            iframe.src = "https://www.google.com/maps?q=Arturo+Gordon+3908,+Macul,+Chile&output=embed";
+            iframe.loading = "lazy";
+            iframe.referrerPolicy = "no-referrer-when-downgrade";
+            iframe.title = "Ubicación de Cocina Libre en Macul";
+            document.getElementById("aboutMap").replaceChildren(iframe);
+          });
+        }
+      })();
+    </script>
     <script>
       (function () {
         const lightbox = document.getElementById("photoLightbox");
