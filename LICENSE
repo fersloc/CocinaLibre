@@ -1,25 +1,50 @@
 Cocina Libre — sitio web
-Copyright (c) 2026 fersloc
+Copyright (c) 2026 fersloc / Cocina Libre
 
-Este contenido (diseño, textos e imágenes propios del sitio) está disponible
-bajo la licencia Creative Commons Atribución 4.0 Internacional (CC BY 4.0).
+Este proyecto separa dos tipos de contenido, con licencias distintas:
 
-Puedes copiar, adaptar y reutilizar este trabajo, incluso con fines comerciales,
-siempre que des crédito apropiado al autor original (fersloc / Cocina Libre),
-enlaces a la licencia, e indiques si hiciste cambios.
+1) CÓDIGO Y MAQUETACIÓN DE LA PÁGINA (HTML, CSS, JavaScript, estructura y
+   diseño de la plantilla, sin las fotografías ni los textos propios del
+   negocio) — Copyright (c) 2026 fersloc.
+   Disponible bajo la licencia Creative Commons Atribución 4.0
+   Internacional (CC BY 4.0). Puedes copiar, adaptar y reutilizar esta
+   plantilla, incluso con fines comerciales, siempre que des crédito
+   apropiado al autor original (fersloc), enlaces a la licencia, e
+   indiques si hiciste cambios.
+   Texto completo: https://creativecommons.org/licenses/by/4.0/deed.es
 
-Texto completo de la licencia:
-https://creativecommons.org/licenses/by/4.0/deed.es
+2) FOTOGRAFÍAS, LOGOTIPO, TEXTOS Y CONTENIDO DE MARCA DE COCINA LIBRE
+   (fotos de productos, fotos de las fundadoras, logo, nombres de tortas,
+   textos de "Sobre nosotras", etc.) — Copyright (c) 2026 Gigi Marrazzo y
+   Dani Marrazzo (Cocina Libre). Todos los derechos reservados.
+   Este material es propiedad de las dueñas del negocio y está protegido
+   automáticamente por la Ley N° 17.336 sobre Propiedad Intelectual de
+   Chile desde su creación, sin necesidad de registro ni trámite alguno.
+   No está permitido copiar, reproducir ni reutilizar estas fotografías,
+   el logotipo ni el contenido de marca sin autorización previa y expresa
+   de Cocina Libre.
 
 ---
 
-This content (original design, copy, and imagery on this site) is made
-available under the Creative Commons Attribution 4.0 International License
-(CC BY 4.0).
+This project separates two kinds of content, under different licenses:
 
-You are free to copy, adapt, and reuse this work, including for commercial
-purposes, as long as you give appropriate credit to the original author
-(fersloc / Cocina Libre), link to the license, and indicate if changes were made.
+1) PAGE CODE AND LAYOUT (HTML, CSS, JavaScript, template structure and
+   design — excluding the business's own photos and copy) —
+   Copyright (c) 2026 fersloc.
+   Available under the Creative Commons Attribution 4.0 International
+   License (CC BY 4.0). You are free to copy, adapt, and reuse this
+   template, including for commercial purposes, as long as you give
+   appropriate credit to the original author (fersloc), link to the
+   license, and indicate if changes were made.
+   Full license text: https://creativecommons.org/licenses/by/4.0/
 
-Full license text:
-https://creativecommons.org/licenses/by/4.0/
+2) PHOTOGRAPHS, LOGO, COPY AND BRAND CONTENT OF COCINA LIBRE (product
+   photos, photos of the founders, logo, cake names, "About us" copy,
+   etc.) — Copyright (c) 2026 Gigi Marrazzo and Dani Marrazzo (Cocina
+   Libre). All rights reserved.
+   This material belongs to the business owners and is automatically
+   protected under Chilean Law N° 17.336 on Intellectual Property from
+   the moment of creation, with no registration required. Copying,
+   reproducing, or reusing these photographs, the logo, or the brand
+   content without Cocina Libre's prior express authorization is not
+   permitted.
