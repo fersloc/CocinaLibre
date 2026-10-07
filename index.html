@@ -151,14 +151,14 @@
                   <span>Cubierta</span>
                   <select id="builderCubierta" aria-label="Cubierta"></select>
                 </label>
-                <details class="builder-pick">
-                  <summary><span>Relleno</span><strong data-builder-count="relleno">Elegir</strong></summary>
-                  <div id="builderRelleno" class="builder-checks" aria-label="Rellenos"></div>
-                </details>
-                <details class="builder-pick">
-                  <summary><span>Bizcocho</span><strong data-builder-count="bizcocho">Elegir</strong></summary>
-                  <div id="builderBizcocho" class="builder-checks" aria-label="Bizcochos"></div>
-                </details>
+                <label>
+                  <span>Relleno</span>
+                  <select id="builderRelleno" aria-label="Relleno" autocomplete="off"></select>
+                </label>
+                <label>
+                  <span>Bizcocho</span>
+                  <select id="builderBizcocho" aria-label="Bizcocho" autocomplete="off"></select>
+                </label>
                 <label>
                   <span>Tamaño</span>
                   <select id="builderTamano" aria-label="Tamaño"></select>
@@ -186,6 +186,7 @@
                   </button>
                 </span>
               </div>
+              <p id="builderError" class="option-error" aria-live="polite"></p>
               <a id="contactWhatsapp" class="button primary" href="#resumen">Reservar esta idea</a>
             </div>
           </div>
@@ -1118,21 +1119,22 @@
       }
 
       function renderBuilderOptions() {
-        fillBuilderChecks(els.builderBizcocho, builderOptionsFor("bizcocho", BUILDER_OPTIONS.bizcocho), "bizcocho");
-        fillBuilderChecks(els.builderRelleno, builderOptionsFor("relleno", BUILDER_OPTIONS.relleno), "relleno");
+        fillBuilderSelect(els.builderBizcocho, builderOptionsFor("bizcocho", BUILDER_OPTIONS.bizcocho), "Elegir bizcocho");
+        fillBuilderSelect(els.builderRelleno, builderOptionsFor("relleno", BUILDER_OPTIONS.relleno), "Elegir relleno");
+        [els.builderBizcocho, els.builderRelleno].forEach((select) => {
+          if (!select) return;
+          select.selectedIndex = 0;
+          select.addEventListener("change", () => {
+            markSelectInvalid(select, false);
+            const error = $("#builderError");
+            if (!error) return;
+            const missing = [els.builderRelleno, els.builderBizcocho].filter((item) => item && !item.value).map((item) => item === els.builderRelleno ? "relleno" : "bizcocho");
+            error.textContent = missing.length && document.querySelector(".builder-options .select-star:not([hidden])") ? `Debes elegir ${missing.join(" y ")} antes de reservar.` : "";
+          });
+        });
         fillBuilderSelect(els.builderCubierta, builderOptionsFor("cubierta", BUILDER_OPTIONS.cubierta));
         fillBuilderSelect(els.builderTamano, builderOptionsFor("tamano", BUILDER_OPTIONS.tamano));
         fillBuilderSelect(els.builderDecoracion, builderOptionsFor("decoracion", BUILDER_OPTIONS.decoracion));
-        document.querySelectorAll(".builder-checks input").forEach((input) => input.addEventListener("change", updateBuilderCounts));
-        document.querySelectorAll(".builder-pick").forEach((pick) => {
-          pick.addEventListener("toggle", () => {
-            if (!pick.open) return;
-            document.querySelectorAll(".builder-pick[open]").forEach((other) => {
-              if (other !== pick) other.open = false;
-            });
-          });
-        });
-        updateBuilderCounts();
       }
 
       function builderOptionsFor(group, fallback) {
@@ -1266,38 +1268,49 @@
         });
       }
 
-      function fillBuilderChecks(container, options, group) {
-        if (!container) return;
-        container.innerHTML = options.map((option, index) => `
-          <label>
-            <input type="checkbox" name="builder-${escapeHtml(group)}" value="${escapeHtml(option)}">
-            ${escapeHtml(option)}
-          </label>
-        `).join("");
-      }
-
       function fillBuilderSelect(select, options, emptyLabel = "") {
         if (!select) return;
         const empty = emptyLabel ? `<option value="">${escapeHtml(emptyLabel)}</option>` : "";
         select.innerHTML = empty + options.map((option) => `<option value="${escapeHtml(option)}">${escapeHtml(option)}</option>`).join("");
       }
 
-      function selectedBuilderChecks(group) {
-        return [...document.querySelectorAll(`input[name="builder-${group}"]:checked`)].map((input) => input.value);
-      }
-
-      function updateBuilderCounts() {
-        ["bizcocho", "relleno"].forEach((group) => {
-          const count = selectedBuilderChecks(group).length;
-          const label = document.querySelector(`[data-builder-count="${group}"]`);
-          if (label) label.textContent = count ? (count === 1 ? "1 elegido" : `${count} elegidos`) : "Elegir";
-        });
+      function markSelectInvalid(select, invalid) {
+        const label = select?.closest("label");
+        if (!label) return;
+        let star = label.querySelector(".select-star");
+        if (!star) {
+          star = document.createElement("span");
+          star.className = "select-star";
+          star.textContent = "*";
+          star.setAttribute("aria-hidden", "true");
+          label.appendChild(star);
+        }
+        star.hidden = !invalid;
+        if (!invalid) return;
+        const style = getComputedStyle(select);
+        const context = document.createElement("canvas").getContext("2d");
+        context.font = style.font;
+        const text = select.options[select.selectedIndex]?.text || "";
+        const left = select.offsetLeft + parseFloat(style.paddingLeft) + parseFloat(style.borderLeftWidth) + context.measureText(text).width + 4;
+        star.style.left = `${left}px`;
+        star.style.top = `${select.offsetTop}px`;
+        star.style.height = `${select.offsetHeight}px`;
       }
 
       function addBuilderReservation() {
         closeBuilderPicks();
-        const bizcochos = selectedBuilderChecks("bizcocho");
-        const rellenos = selectedBuilderChecks("relleno");
+        const bizcocho = els.builderBizcocho?.value || "";
+        const relleno = els.builderRelleno?.value || "";
+        const error = $("#builderError");
+        const missing = [!relleno && "relleno", !bizcocho && "bizcocho"].filter(Boolean);
+        markSelectInvalid(els.builderRelleno, !relleno);
+        markSelectInvalid(els.builderBizcocho, !bizcocho);
+        if (missing.length) {
+          if (error) error.textContent = `Debes elegir ${missing.join(" y ")} antes de reservar.`;
+          (!relleno ? els.builderRelleno : els.builderBizcocho)?.focus();
+          return;
+        }
+        if (error) error.textContent = "";
         const cubierta = els.builderCubierta?.value || "A definir";
         const tamano = els.builderTamano?.value || "A definir";
         const decoracion = els.builderDecoracion?.value || "A definir";
@@ -1305,8 +1318,8 @@
         const reservation = {
           name: "Torta vegana personalizada",
           category: "Pedido personalizado",
-          bizcocho: bizcochos.length ? bizcochos.join(" + ") : "A definir",
-          relleno: rellenos.length ? rellenos.join(" + ") : "A definir",
+          bizcocho,
+          relleno,
           cubierta,
           format: tamano,
           decoration: decoracion,

@@ -1011,6 +1011,40 @@
         line-height: 1.35;
       }
 
+      #builderError {
+        color: #8b2d1d;
+        min-height: 0;
+        margin: 12px 0 0;
+        padding: 8px 14px;
+        border-radius: 14px;
+        background: rgba(255, 253, 247, 0.96);
+      }
+
+      #builderError:empty {
+        display: none;
+      }
+
+      .builder-options label {
+        position: relative;
+      }
+
+      .builder-options .select-star {
+        letter-spacing: 0;
+        text-transform: none;
+        position: absolute;
+        display: grid;
+        place-items: center;
+        color: #8b2d1d;
+        font-size: 1.2rem;
+        font-weight: 800;
+        line-height: 1;
+        pointer-events: none;
+      }
+
+      .select-star[hidden] {
+        display: none;
+      }
+
       .price {
         color: var(--clay);
         font-weight: 800;
@@ -1691,7 +1725,7 @@
       .builder-options textarea {
         width: 100%;
         min-height: 74px;
-        resize: vertical;
+        resize: none;
         border: 1px solid rgba(255,255,255,0.28);
         border-radius: 18px;
         background: rgba(255,253,247,0.94);
@@ -1699,6 +1733,36 @@
         padding: 11px 12px;
         font: inherit;
         font-weight: 700;
+      }
+
+      .builder-options textarea::-webkit-scrollbar {
+        width: 8px;
+      }
+
+      .builder-options textarea::-webkit-scrollbar-button {
+        display: none;
+      }
+
+      .builder-options textarea::-webkit-scrollbar-track {
+        margin: 12px 0;
+        background: transparent;
+      }
+
+      .builder-options textarea::-webkit-scrollbar-thumb {
+        border: 2px solid transparent;
+        border-radius: 999px;
+        background: rgba(67, 81, 55, 0.45) content-box;
+      }
+
+      .builder-options textarea::-webkit-scrollbar-thumb:hover {
+        background: rgba(67, 81, 55, 0.75) content-box;
+      }
+
+      @supports not selector(::-webkit-scrollbar) {
+        .builder-options textarea {
+          scrollbar-width: thin;
+          scrollbar-color: rgba(67, 81, 55, 0.5) transparent;
+        }
       }
 
       .topper-note {
