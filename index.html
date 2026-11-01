@@ -61,6 +61,12 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet" />
     <link rel="stylesheet" href="styles.css" />
+      <script type="importmap">
+      { "imports": {
+        "three": "./assets/builder/3d/vendor/three.module.min.js",
+        "three/addons/": "./assets/builder/3d/vendor/addons/"
+      } }
+    </script>
   </head>
   <body>
     <header class="topbar">
@@ -131,6 +137,13 @@
             <p id="contactClaim">Cotiza tortas personalizadas, elige la cubierta, rellenos y bizcochos.</p>
           </div>
           <div class="builder-card">
+            <div class="cake3d" id="cake3d" role="img" aria-label="Torta en 3D con cuatro capas: bizcocho, relleno, bizcocho y cubierta. Arrástrala para girarla.">
+              <canvas></canvas>
+              <span class="cake3d-lbl">Cubierta</span>
+              <span class="cake3d-lbl">Bizcocho</span>
+              <span class="cake3d-lbl">Relleno</span>
+              <span class="cake3d-lbl">Bizcocho</span>
+            </div>
             <div class="layer-cake" aria-label="Capas de una torta personalizable">
               <div class="cake-step">
                 <span class="cake-step-text"><strong>Cubierta</strong></span>
@@ -1589,6 +1602,19 @@
           resumen: { src: "assets/Imagenes/Tortas/Aves/Aves-Chucao.png", flip: true }
         }
       };
+    </script>
+    <script>
+      // Torta 3D de "Arma tu torta": se descarga solo cuando esa seccion se ve. Si falla, quedan las fotos.
+      (function () {
+        var fotos = document.querySelector(".layer-cake");
+        if (!fotos || !("IntersectionObserver" in window)) return;
+        var io = new IntersectionObserver(function (es) {
+          if (!es.some(function (e) { return e.isIntersecting; })) return;
+          io.disconnect();
+          import("./assets/builder/3d/cake3d.js").catch(function (err) { console.warn("Torta 3D no disponible, se usan las fotos.", err); });
+        }, { rootMargin: "200px" });
+        io.observe(fotos);
+      })();
     </script>
     <script src="scroll-top.js"></script>
   </body>

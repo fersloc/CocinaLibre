@@ -11,3 +11,7 @@ PROGRESO.md
 Thumbs.db
 *.swp
 *.bak
+
+# Pruebas y respaldos locales de la torta 3D (el .glb original pesa 20 MB; no subir)
+_prueba3d/
+_respaldos/
