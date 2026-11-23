@@ -2984,3 +2984,10 @@
     max-height: 820px;
   }
 }
+
+/* Con WebGL: el bloque 3D reserva su espacio desde el inicio (sin saltos) y las fotos de respaldo
+   solo se ven si el 3D falla o tarda demasiado (clase cake3d-failed, la pone index.html). */
+html.cake3d-on .cake3d { display: block; }
+html.cake3d-on .cake3d + .layer-cake { display: none; }
+html.cake3d-failed .cake3d { display: none; }
+html.cake3d-failed .cake3d + .layer-cake { display: block; }

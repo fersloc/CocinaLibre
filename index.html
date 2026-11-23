@@ -68,6 +68,16 @@
         "three/addons/": "./assets/builder/3d/vendor/addons/"
       } }
     </script>
+    <script>
+      // Si el navegador soporta WebGL, la torta 3D reserva su espacio desde el inicio y las fotos de respaldo
+      // no se muestran mientras carga (solo si falla o tarda demasiado).
+      (function () {
+        try {
+          var c = document.createElement("canvas");
+          if (c.getContext("webgl2") || c.getContext("webgl")) document.documentElement.classList.add("cake3d-on");
+        } catch (e) {}
+      })();
+    </script>
   </head>
   <body>
     <header class="topbar">
@@ -1605,16 +1615,32 @@
       };
     </script>
     <script>
-      // Torta 3D de "Arma tu torta": se descarga solo cuando esa seccion se ve. Si falla, quedan las fotos.
+      // Torta 3D de "Arma tu torta": se descarga en segundo plano apenas termina de cargar la pagina,
+      // asi ya esta lista cuando se abre la seccion. Si falla o tarda de mas, se muestran las fotos.
       (function () {
-        var fotos = document.querySelector(".layer-cake");
-        if (!fotos || !("IntersectionObserver" in window)) return;
-        var io = new IntersectionObserver(function (es) {
-          if (!es.some(function (e) { return e.isIntersecting; })) return;
-          io.disconnect();
-          import("./assets/builder/3d/cake3d.js").catch(function (err) { console.warn("Torta 3D no disponible, se usan las fotos.", err); });
-        }, { rootMargin: "200px" });
-        io.observe(fotos);
+        var root = document.documentElement;
+        if (!root.classList.contains("cake3d-on")) return;
+        var started = false;
+        function cargar() {
+          if (started) return;
+          started = true;
+          import("./assets/builder/3d/cake3d.js").catch(function (err) {
+            root.classList.add("cake3d-failed");
+            console.warn("Torta 3D no disponible, se usan las fotos.", err);
+          });
+        }
+        function enReposo() {
+          if ("requestIdleCallback" in window) requestIdleCallback(cargar, { timeout: 2500 });
+          else setTimeout(cargar, 1000);
+        }
+        if (location.hash === "#arma-tu-torta") cargar();
+        if (document.readyState === "complete") enReposo(); else window.addEventListener("load", enReposo);
+        window.addEventListener("hashchange", function () { if (location.hash === "#arma-tu-torta") cargar(); });
+        // red muy lenta: tras 8 s mostramos las fotos; si el 3D llega despues, las reemplaza
+        setTimeout(function () {
+          var c = document.getElementById("cake3d");
+          if (c && !c.classList.contains("is-ready")) root.classList.add("cake3d-failed");
+        }, 8000);
       })();
     </script>
     <script src="scroll-top.js"></script>

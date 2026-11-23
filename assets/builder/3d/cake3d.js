@@ -114,7 +114,7 @@ canvas.addEventListener("pointermove", (e) => {
 ["pointerup", "pointercancel"].forEach((t) => canvas.addEventListener(t, () => { dragging = false; vel = THREE.MathUtils.clamp(vel, -6, 6); }));
 
 // --- tamano y scroll ---
-const TX = 0.7;                           // la torta queda a la izquierda; las etiquetas, a la derecha
+const TX = 0.5;                           // la torta queda a la izquierda; las etiquetas, a la derecha
 function resize() {
   const w = root.clientWidth, h = root.clientHeight;
   if (!w || !h) return;
@@ -134,6 +134,12 @@ function progress() {
 }
 const ease = (t) => t * t * (3 - 2 * t);
 
+// entrada: las capas caen de arriba una tras otra (bizcocho de abajo primero) y se frenan con un pequeno rebote
+const INTRO_STEP = 0.3, INTRO_DUR = 0.95, FALL = 5, INTRO_END = 3 * INTRO_STEP + INTRO_DUR;
+const clamp01 = (x) => THREE.MathUtils.clamp(x, 0, 1);
+const easeOutBack = (t) => { const c1 = 1.1, c3 = c1 + 1; return 1 + c3 * Math.pow(t - 1, 3) + c1 * Math.pow(t - 1, 2); };
+let introT0 = null;                       // se fija al primer cuadro visible: la entrada se ve siempre, y una sola vez
+
 let visible = false, running = false, last = 0;
 new IntersectionObserver((es) => { visible = es[0].isIntersecting; if (visible && !running) { running = true; last = performance.now(); requestAnimationFrame(frame); } }).observe(root);
 
@@ -141,38 +147,47 @@ const v = new THREE.Vector3();
 function frame(now) {
   if (!visible || !root.offsetParent) { running = false; return; }   // sin gastar bateria si no se ve
   const dt = Math.min((now - last) / 1000, 0.05); last = now;
+  if (introT0 === null) introT0 = reduceMotion ? now - 1e6 : now;
+  const introT = (now - introT0) / 1000;
 
   if (!dragging) { vel += (AUTO - vel) * (1 - Math.exp(-dt * 1.2)); yaw += vel * dt; }
   pitch += (pitchTarget - pitch) * (1 - Math.exp(-dt * 8));
 
-  const p = ease(progress()), s = (1 - p) * SEP;
-  base1.position.y = 0;
-  cream.position.y = hB + s;
-  base2.position.y = hB + hC + 2 * s;
-  topping.position.y = 2 * hB + hC + 3 * s;
+  // el scroll solo manda cuando la entrada termino (asi nunca nace "toda unida"); luego se mezcla suave
+  const blend = ease(clamp01((introT - INTRO_END) / 0.8));
+  const p = ease(progress()) * blend, s = (1 - p) * SEP;
+  const y = [0, hB + s, hB + hC + 2 * s, 2 * hB + hC + 3 * s];        // posicion final de cada capa
+  const fall = (i) => FALL * (1 - easeOutBack(clamp01((introT - i * INTRO_STEP) / INTRO_DUR)));
+  base1.position.y = y[0] + fall(0);
+  cream.position.y = y[1] + fall(1);
+  base2.position.y = y[2] + fall(2);
+  topping.position.y = y[3] + fall(3);
   cake.rotation.y = yaw;
 
   // abierta: se ve todo y la torta queda a la izquierda (etiquetas a la derecha); junta: se acerca y se centra
-  // el encuadre se calcula con la altura real de la torta (que cambia al juntarse), para que nunca se corte
-  const yTop = topping.position.y + toppingH;
-  const t = camera.userData.t, needW = 3.8 - 0.8 * p;
+  // el encuadre se calcula con la altura final de la torta (no con la caida), para que nunca se corte
+  const yTop = y[3] + toppingH;
+  const t = camera.userData.t, needW = 4.2 - 0.8 * p;
   const needH = yTop * Math.cos(pitch) + 2.2 * Math.sin(pitch) + 0.6;
   const d = Math.max(needH / t, needW / (t * camera.aspect));
   const lookY = yTop / 2, tx = TX * (1 - p);
   camera.position.set(tx, lookY + Math.sin(pitch) * d, Math.cos(pitch) * d);
   camera.lookAt(tx, lookY, 0);
 
-  const centers = [topping.position.y + toppingH * 0.3, base2.position.y + hB / 2, cream.position.y + hC / 2, base1.position.y + hB / 2];
+  // las etiquetas aparecen cuando la ultima capa ya se asento
+  const labelIn = clamp01((introT - (INTRO_END - 0.2)) / 0.4);
+  const centers = [y[3] + toppingH * 0.3, y[2] + hB / 2, y[1] + hC / 2, y[0] + hB / 2];
   const h = root.clientHeight;
-  centers.forEach((y, i) => {
-    v.set(0, y, 0).project(camera);
+  centers.forEach((cy, i) => {
+    v.set(0, cy, 0).project(camera);
     labels[i].style.top = ((1 - v.y) / 2 * h) + "px";
-    labels[i].style.opacity = String(1 - p);
+    labels[i].style.opacity = String((1 - p) * labelIn);
   });
 
   renderer.render(scene, camera);
   requestAnimationFrame(frame);
 }
 
-root.classList.add("is-ready");           // mostrar el 3D y ocultar las fotos de respaldo
+root.classList.add("is-ready");           // el 3D esta listo: las fotos de respaldo ya no hacen falta
+document.documentElement.classList.remove("cake3d-failed");
 resize();
